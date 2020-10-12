@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # This function equals to `cd <dirname> && ls <dirname> [options]',
 # any option that you passed will be used for `ls' command.

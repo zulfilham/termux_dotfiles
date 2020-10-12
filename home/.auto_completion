@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # bash/zsh completion support for core Git.
 #
