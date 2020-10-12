@@ -1,0 +1,18 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# I've got ssh connection set up, in your case might be different.
+computer_address="Zulfilham@192.168.43.237";
+internal="/storage/emulated/0";
+external=/storage/[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9];
+
+# no memory card equals no external path for Termux.
+if [ -d $external ]; then
+   external_storage=$external/Android/data/com.termux;
+
+   if [ ! -d $external_storage ]; then
+      termux-setup-storage;
+      rm -rf ~/storage;
+   fi;
+else
+   unset external;
+fi;

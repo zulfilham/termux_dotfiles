@@ -1,0 +1,73 @@
+## Here is an example for PHP
+
+syntax php "\.(php[23457s~]?|phtml|ctp)$"
+magic "PHP script"
+comment "//"
+
+# PHP delimeter:
+color blue "<\?php"
+color white "<\?"
+
+# Terminating:
+color green "\<(exit|die)\>"
+
+# Functions & Methods:
+color yellow "[[:alpha:]_][[:alnum:]_]*[[:blank:]]*\("
+color white "\("
+
+# Class names:
+color brightyellow "class +[[:alpha:]_][[:alnum:]_]*( +extends +[[:alpha:]_][[:alnum:]]*)?"
+color brightyellow "new +[[:alpha:]_][[:alnum:]_]*\b"
+color brightyellow "[[:alpha:]_][[:alnum:]_]* +\$[[:alpha:]_][[:alnum:]_]*"
+
+# Interface
+color brightwhite "interface +[[:alpha:]_][[:alnum:]_]*"
+
+# Types:
+color green "\<(array|bool|boolean|callable|const|false|FALSE|float|global|int|integer|null|NULL|object|string|true|TRUE|var)\>"
+
+# Directives and structures:
+color brightcyan "\<(abstract|as|class|clone|(end)?declare|extends|function|implements|include(_once)?|inst(ance|ead)of|interface|namespace|new|private|protected|public|require(_once)?|static|trait|use|yield)\>"
+color brightcyan "\<(case|catch|default|do|echo|else(if)?|end(for(each)?|if|switch|while)|final(ly)?|for(each)?|if|print|switch|throw|try|while)\>"
+
+# Operators:
+color brightcyan "\<(and|or|xor)\>"
+
+# Control flows:
+color brightmagenta "\<(break|continue|goto|return)\>"
+
+# Numbers:
+color yellow "\b[0-9]+\b"
+
+# Strings & Variables:
+   # Heredoc
+   color white "<<<[[:blank:]]*heredoc$"
+   color brightyellow start="heredoc$" end="^(   )*heredoc;$"
+
+   # Double quotes:
+   color brightyellow ""([^"\]*|\\.)*"|'[^']*'"
+
+   # Variables:
+   color cyan "\$\$?[[:alpha:]_][[:alnum:]_]*(->[[:alpha:]_][[:alnum:]_]*)?"
+   color cyan "\{(\$[[:alpha:]_][[:alnum:]_]*(->[[:alpha:]_][[:alnum:]_]*)?)((\[[^]]+\])+)?\}"
+   color white "\b->\b"
+   color cyan "\$\{[[:alpha:]_][[:alnum:]_]*(\[([^]]+|\[.+\])+\])?\}"
+
+   # Single quotes:
+   color brightyellow "("([^"${}\]*|\\.)"|'[^']*')[[:blank:]]*(;|\.)"
+   color white "\B[[:blank:]]*\."
+
+   # Balancing regex
+   color brightyellow "(("\.+"|'\.+');|\.{2,})"
+   color white ";$"
+
+# Comments:
+color brightblack "(^| )//.*"
+color brightblack start="/\*" end="\*/"
+
+# Nowdoc
+color white "<<<[[:blank:]]*'nowdoc'$"
+color brightyellow start="'nowdoc'$" end="^(   )*nowdoc;$"
+
+# Trailing whitespace:
+color ,cyan "[[:space:]]+$"

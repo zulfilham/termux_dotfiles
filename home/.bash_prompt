@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+
+function git_prompt () {
+   local status branchname;
+
+   if status=$(git status 2>&1); then
+      branchname=$(git symbolic-ref --quiet --short HEAD || git rev-parse --short HEAD);
+      branchname="${branchname/'heads/stash'/'stash'}"
+
+      if [[ "$status" == *"nothing to commit"* ]]; then
+         if git rev-parse --verify stash &> /dev/null; then
+            branchname="$3$branchname$5"; # working directory is clean and there's a stash, in cyan.
+         else
+            branchname="$4$branchname$5"; # working directory is clean and no stashes, in blue.
+         fi;
+      else
+         branchname="$2$branchname$5";    # working directory is dirty, in red.
+      fi;
+      local prompt=" $1 $branchname";
+   fi;
+   echo -n "$prompt$6";
+}
+
+PS1="\n";
+
+if [ "$(whoami)" != "root" ]; then
+   PS1+="\[\e[38;5;202;1m\]"; # root user in red.
+else
+   PS1+="\[\e[38;5;9;1m\]";   # non-root user in yellow.
+fi;
+
+PS1+="\u\[\e[0m\]@";
+
+if [ -z "$SSH_TTY" ]; then
+   PS1+="\[\e[38;5;226;1m\]\H\[\e[0m\]"; # ssh connected, hostname in red.
+else
+   PS1+="\[\e[38;5;9;1m\]\H\[\e[0m\]";   # ssh disconnected, hostname in yellow.
+fi;
+
+PS1+='\[\e[0m\] \[\e[38;5;15;1m\]in\[\e[0m\] \[\e[38;5;63;1m\]\w\[\e[0m\]$(git_prompt "\[\e[38;5;15;1m\]on\[\e[0m\]" "\[\e[38;5;9;1m\]" "\[\e[38;5;14;1m\]" "\[\e[38;5;12;1m\]" "\[\e[0m\]" "\n\[\e[38;5;15;1m\]$\[\e[0m\] ")';

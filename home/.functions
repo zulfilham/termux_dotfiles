@@ -1,0 +1,133 @@
+#!/usr/bin/bash
+
+# This function equals to `cd <dirname> && ls <dirname> [options]',
+# any option that you passed will be used for `ls' command.
+#
+# For instance:
+#    `cld $internal/Download -AR;'
+#
+# that's exactly the same as:
+#    `cd $internal/Download -AR && ls -AR;'
+# Usage: cld [<dirname> [options]|[options] <dirname>]
+function cld () {
+   local directory option false_option;
+   local options=();
+
+   for option in "$@"; do
+      if [ -e "$option" ] && [ -d "$option" ]; then
+         if [ ! -v directory ]; then
+            directory="$option";
+         else
+            echo "Fatal error: cld expected exactly 1 directory" >&2;
+            return 1;
+         fi;
+      elif [ "$option" == "--help" ]; then
+         echo "Fatal error: cld expected a valid option, \`help' is not a valid option." >&2;
+         return 1;
+      else
+         options+=("$option");
+      fi;
+   done;
+
+   if [ -v directory ]; then
+      if ! false_option=$(ls "${options[@]}" 2>&1); then
+         false_option=$(echo "$false_option" | grep -oP "(?<=-- ).+$");
+         echo "Fatal error: cld expected a valid option, \`$false_option' is not a valid option." >&2;
+         return 1;
+      else
+         cd "$directory";
+         ls "${options[@]}";
+      fi;
+   else
+      echo "Fatal error: cld expected exactly 1 directory" >&2;
+      return 1;
+   fi;
+}
+
+# This function is similarly to `cld' unless it'll clear the screen
+# first.
+# Usage: celd [<dirname> [options]|[options] <dirname>]
+function celd () {
+   local directory option false_option;
+   local options=();
+
+   for option in "$@"; do
+      if [ -e "$option" ] && [ -d "$option" ]; then
+         if [ ! -v directory ]; then
+            directory="$option";
+         else
+            echo "Fatal error: celd expected exactly 1 directory" >&2;
+            return 1;
+         fi;
+      elif [ "$option" == "--help" ]; then
+         echo "Fatal error: celd expected a valid option, \`help' is not a valid option." >&2;
+         return 1;
+      else
+         options+=("$option");
+      fi;
+   done;
+
+   if [ -v directory ]; then
+      if ! false_option=$(ls "${options[@]}" 2>&1); then
+         false_option=$(echo "$false_option" | grep -oP "(?<=-- ).+$");
+         echo "Fatal error: celd expected a valid option, \`$false_option' is not a valid option." >&2;
+         return 1;
+      else
+         clear;
+         cd "$directory";
+         ls "${options[@]}";
+      fi;
+   else
+      echo "Fatal error: celd expected exactly 1 directory" >&2;
+      return 1;
+   fi;
+}
+
+# This function used for comparing 2 files whether it is equal or not.
+# Usage: compare <file1> <file2>
+function compare () {
+   if (( $# == 2 )); then
+      if cmp -s -- "$1" "$2"; then
+         echo "TRUE";
+      else
+         echo "FALSE";
+      fi;
+   else
+      echo "Fatal error: compare expected exactly 2 parameters, $# given." >&2;
+      return 1;
+   fi;
+}
+
+# This function used to check whether specified files is empty or not.
+# Usage: empty <files...>
+function empty () {
+   if (( $# > 0 )); then
+      for filename in "$@"; do
+         echo -n "\`$filename' => ";
+
+         if [ -e "$filename" ] && [ ! -d "$filename" ]; then
+            if [ -s "$filename" ]; then
+               echo "FALSE";
+            else
+               echo "TRUE";
+            fi;
+         else
+            echo "FALSE";
+         fi;
+      done;
+   else
+      echo "Fatal error: empty expected at least 1 parameter, $# given." >&2;
+      return 1;
+   fi;
+}
+
+# This function used for set session/terminal title.
+# Usage: set_title <title>
+function set_title () {
+   if (( $# == 1 )); then
+      echo -en "\e]0;$1\007";
+   else
+      echo "Fatal error: set_title expected exactly 1 parameter, $# given." >&2;
+      return 1;
+   fi;
+}
