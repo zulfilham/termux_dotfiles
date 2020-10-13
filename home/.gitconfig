@@ -15,8 +15,10 @@
    log-graph = "log --all --graph"
    # I usually set Termux width to 88 `(echo $COLUMNS);'.
    log-verbose = "log --all --graph --stat-width=85"
+   log-oneline = "log --all --oneline --graph"
    add-untracked = "!function __git_add_untracked () { IFS=$'\n' ; while read -r filename; do git add `printf "${filename//'\"'}"`; done <<< "$(git ls-files --others --exclude-standard)"; unset IFS; }; __git_add_untracked;"
    add-modified = "add -u"
    ls-files-untracked = "ls-files --exclude-standard --others"
+   ls-files-cached = "diff --cached --name-only"
 [pull]
    rebase = false
