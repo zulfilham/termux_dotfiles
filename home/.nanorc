@@ -8,7 +8,7 @@ unbind ^E all     #
 unbind ^F all     #
 unbind ^G all     #
 unbind ^H all     #
-unbind ^I all     #
+# unbind ^I all   # `unbind' sama dengan tidak ada `Tab'.
 unbind ^J all     #
 unbind ^K all     #
 unbind ^L all     #
