@@ -24,17 +24,17 @@ function git_prompt () {
 PS1="\n";
 
 if [ "$(whoami)" != "root" ]; then
-   PS1+="\[\e[38;5;202;1m\]"; # root user in red.
+   PS1+="\[\e[38;5;202;1m\]"; # non-root user in orange.
 else
-   PS1+="\[\e[38;5;9;1m\]";   # non-root user in yellow.
+   PS1+="\[\e[38;5;9;1m\]";   # root user in red.
 fi;
 
 PS1+="\u\[\e[0m\]@";
 
 if [ -z "$SSH_TTY" ]; then
-   PS1+="\[\e[38;5;226;1m\]\H\[\e[0m\]"; # ssh connected, hostname in red.
+   PS1+="\[\e[38;5;226;1m\]\H\[\e[0m\]"; # ssh disconnected, hostname in yellow.
 else
-   PS1+="\[\e[38;5;9;1m\]\H\[\e[0m\]";   # ssh disconnected, hostname in yellow.
+   PS1+="\[\e[38;5;9;1m\]\H\[\e[0m\]";   # ssh connected, hostname in red.
 fi;
 
 PS1+='\[\e[0m\] \[\e[38;5;15;1m\]in\[\e[0m\] \[\e[38;5;63;1m\]\w\[\e[0m\]$(git_prompt "\[\e[38;5;15;1m\]on\[\e[0m\]" "\[\e[38;5;9;1m\]" "\[\e[38;5;14;1m\]" "\[\e[38;5;12;1m\]" "\[\e[0m\]" "\n\[\e[38;5;15;1m\]$\[\e[0m\] ")';
