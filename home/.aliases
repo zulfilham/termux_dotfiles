@@ -4,38 +4,60 @@
    alias apply="source ~/.bash_profile";
    # Open new session in hacky way.
    alias trigger-termux-session="am start -n com.termux/com.termux.filepicker.TermuxFileReceiverActivity -d file:///dev/null";
-   alias ssh_computer="ssh -p 22 $computer_address";     # see `home/.path'.
-   alias sftp_computer="sftp -P 22 $computer_address";   # see `home/.path'.
+   alias ssh-computer="ssh -p 22 $computer_address";     # see 'home/.path'
+   alias sftp-computer="sftp -P 22 $computer_address";   # see 'home/.path'
    alias ls="$PREFIX/bin/ls -A --color=auto";
    alias quit="exit 0; kill -9 $$";
 
 # Shortcuts
    # general
+   alias rm="rm -i";
+   alias mv="mv -i";
+   alias cp="cp -i";
    alias cls="clear; ls";
    alias clh="clear; cd; ls";
    alias cphp="clear; php";
    alias cbash="clear; bash";
    alias cpython="clear; python";
    alias cpython2="clear; python2";
-   alias ctree="clear; tree";
+   alias ccat="clear; cat";
    alias cfind="clear; find";
+   alias cgit="clear; git";
    alias cgrep="clear; grep";
-   alias .nanorc="nano ~/.nanorc";
+   alias chead="clear; head";
+   alias cman="clear; man";
+   alias csed="clear; sed";
+   alias ctail="clear; tail";
+   alias ctree="clear; tree";
+   alias cvtshowkeys="clear; vtshowkeys";
+   alias .aliases="nano ~/.aliases";
+   alias .auto_completion="nano ~/.auto_completion";
    alias .bashrc="nano ~/.bashrc";
    alias .bash_profile="nano ~/.bash_profile";
+   alias .bash_prompt="nano ~/.bash_prompt";
+   alias .functions="nano ~/.functions";
+   alias .gitattributes="nano ~/.gitattributes";
+   alias .gitconfig="nano ~/.gitconfig";
+   alias .inputrc="nano ~/.inputrc";
+   alias .nanorc="nano ~/.nanorc";
+   alias .path="nano ~/.path";
 
    # nano syntax highlighting
-      alias php.nanorc="nano /data/data/com.termux/files/usr/share/nano/php.nanorc";
-      alias bash.nanorc="nano /data/data/com.termux/files/usr/share/nano/bash.nanorc";
-      alias c.nanorc="nano /data/data/com.termux/files/usr/share/nano/c.nanorc";
-      alias python.nanorc="nano /data/data/com.termux/files/usr/share/nano/python.nanorc";
-      alias txt.nanorc="nano /data/data/com.termux/files/usr/share/nano/txt.nanorc";
+      alias bash.nanorc="nano $PREFIX/share/nano/bash.nanorc";
+      alias c.nanorc="nano $PREFIX/share/nano/c.nanorc";
+      alias php.nanorc="nano $PREFIX/share/nano/php.nanorc";
+      alias python.nanorc="nano $PREFIX/share/nano/python.nanorc";
+      alias txt.nanorc="nano $PREFIX/share/nano/txt.nanorc";
 
    # path
       alias internal="cd $internal; ls";
-      alias external="cd $external; ls";
-      alias external_storage="cd $external_storage; ls";
-      alias nanorc="cd /usr/share/nano; ls";
+
+      if [ -v external ]; then
+         alias external="cd $external; ls";
+         alias external-storage="cd $external_storage; ls";
+      fi;
+
+      alias nanorc="cd $PREFIX/share/nano; ls";
 
 # Git shortcuts
    # general
@@ -43,8 +65,8 @@
       alias gb="git branch";
       alias gco="git checkout";
       alias gcp="git cherry-pick";
-      alias gcln="git clean";
       alias gcl="git clone";
+      alias gcln="git clean";
       alias gcm="git commit";
       alias gcf="git config";
       alias gd="git diff";
@@ -53,30 +75,32 @@
       alias gh="git help";
       alias gi="git init";
       alias gl="git log";
-      alias gls="git ls-files";
+      alias glsf="git ls-files";
+      alias glst="git ls-tree";
       alias gm="git merge";
       alias gmv="git mv";
       alias gpl="git pull";
       alias gps="git push";
+      alias gr="git reset";
       alias grb="git rebase";
       alias grf="git reflog";
-      alias gr="git reset";
       alias grmt="git remote";
       alias grst="git restore";
+      alias grl="git rev-list";
       alias grv="git revert";
       alias grm="git rm";
+      alias gs="git status";
       alias gsh="git show";
       alias gsth="git stash";
-      alias gs="git status";
       alias gsw="git switch";
 
-   # With `clear' command
+   # With 'clear' command
       alias cga="clear; git add";
       alias cgb="clear; git branch";
       alias cgco="clear; git checkout";
       alias cgcp="clear; git cherry-pick";
-      alias cgcln="clear; git clean";
       alias cgcl="clear; git clone";
+      alias cgcln="clear; git clean";
       alias cgcm="clear; git commit";
       alias cgcf="clear; git config";
       alias cgd="clear; git diff";
@@ -85,19 +109,21 @@
       alias cgh="clear; git help";
       alias cgi="clear; git init";
       alias cgl="clear; git log";
-      alias cgls="clear; git ls-files";
+      alias cglsf="clear; git ls-files";
+      alias cglst="clear; git ls-tree";
       alias cgm="clear; git merge";
       alias cgmv="clear; git mv";
       alias cgpl="clear; git pull";
       alias cgps="clear; git push";
+      alias cgr="clear; git reset";
       alias cgrb="clear; git rebase";
       alias cgrf="clear; git reflog";
-      alias cgr="clear; git reset";
       alias cgrmt="clear; git remote";
       alias cgrst="clear; git restore";
+      alias cgrl="clear; git rev-list";
       alias cgrv="clear; git revert";
       alias cgrm="clear; git rm";
+      alias cgs="clear; git status";
       alias cgsh="clear; git show";
       alias cgsth="clear; git stash";
-      alias cgs="clear; git status";
       alias cgsw="clear; git switch";
