@@ -5,20 +5,18 @@
    editor = /data/data/com.termux/files/usr/bin/nano
    autocrlf = false
    eol = lf
+
+   # uncomment this, to get rid of less' output after exiting
+   # pager = less -+$LESS -R
 [alias]
-   add-untracked = !(git ls-files -o --exclude-standard | xargs -I filename git add "filename")
-[credential]
-   helper = store
-[credential]
-   helper = store
-[alias]
-   log-graph = "log --all --graph"
-   # I usually set Termux width to 88 `(echo $COLUMNS);'.
-   log-verbose = "log --all --graph --stat-width=85"
-   log-oneline = "log --all --oneline --graph"
-   add-untracked = "!function __git_add_untracked () { IFS=$'\n' ; while read -r filename; do git add `printf "${filename//'\"'}"`; done <<< "$(git ls-files --others --exclude-standard)"; unset IFS; }; __git_add_untracked;"
+   log-graph = "log --all --graph --date=local"
+   log-verbose = "log --all --graph --date=local --stat-width=81"
+   log-oneline = "log --all --oneline --date=local --graph"
    add-modified = "add -u"
    ls-files-untracked = "ls-files --exclude-standard --others"
    ls-files-cached = "diff --cached --name-only"
+
+   # this alias only work if you have installed Perl on your machine.
+   add-untracked = "!echo \"a\n*\nq\n\" | git add -i > /dev/null"
 [pull]
    rebase = false
