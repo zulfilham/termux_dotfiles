@@ -98,29 +98,6 @@ function compare () {
    fi;
 }
 
-# This function used to check whether specified files is empty or not.
-# Usage: empty <files...>
-function empty () {
-   if (( $# > 0 )); then
-      for filename in "$@"; do
-         echo -n "\`$filename' => ";
-
-         if [ -e "$filename" ] && [ ! -d "$filename" ]; then
-            if [ -s "$filename" ]; then
-               echo "FALSE";
-            else
-               echo "TRUE";
-            fi;
-         else
-            echo "FALSE";
-         fi;
-      done;
-   else
-      echo "Fatal error: empty expected at least 1 parameter, $# given." >&2;
-      return 1;
-   fi;
-}
-
 # This function used for set session/terminal title.
 # Usage: set_title <title>
 function set_title () {
