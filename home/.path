@@ -11,7 +11,6 @@ if [ -d $external ]; then
 
    if [ ! -d $external_storage ]; then
       termux-setup-storage;
-      rm -rf ~/storage;
    fi;
 else
    unset external;
