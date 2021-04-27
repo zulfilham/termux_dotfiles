@@ -1,17 +1,38 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# I've got ssh connection set up, in your case might be different.
-computer_address="Zulfilham@192.168.43.237";
-internal="/storage/emulated/0";
-external=/storage/[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9];
+# My Personal Exports
+   export MYSQL_USERNAME="My MySQL USERNAME";
+   export MYSQL_PASSWORD="My MySQL PASSWORD";
+   export MYSQL_DIRNAME="My MySQL DIRNAME";
+   export COMPUTER_ADDRESS=Zulfilham@192.168.43.237;
 
-# no memory card equals no external path for Termux.
-if [ -d $external ]; then
-   external_storage=$external/Android/data/com.termux;
+# General
+   export COLUMNS LINES;
+   export PROMPT_DIRTRIM=0;
+   export NANORC="$PREFIX/share/nano";
+   export VIMRC="$PREFIX/share/vim";
+   export ETC="$PREFIX/etc";
+   export BIN="$PREFIX/bin";
+   export SHARE="$PREFIX/share";
+   export INTERNAL="/storage/emulated/0";
+   export EXTERNAL=$(echo /storage/[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]);
 
-   if [ ! -d $external_storage ]; then
-      termux-setup-storage;
+   if [ -d $EXTERNAL ]; then
+      EXTERNAL_STORAGE=$EXTERNAL/Android/data/com.termux;
+
+      if [ -e $EXTERNAL_STORAGE ]; then
+         if [ ! -d $EXTERNAL_STORAGE ]; then
+            if su --command "rm $EXTERNAL_STORAGE" &> /dev/null; then
+               su --command "mkdir $EXTERNAL_STORAGE";
+            else
+               unset EXTERNAL_STORAGE;
+            fi;
+         fi;
+      else
+         if ! su --command "mkdir $EXTERNAL_STORAGE" &> /dev/null; then
+            unset EXTERNAL_STORAGE;
+         fi;
+      fi;
+   else
+      unset EXTERNAL;
    fi;
-else
-   unset external;
-fi;
