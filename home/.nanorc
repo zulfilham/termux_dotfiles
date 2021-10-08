@@ -123,4 +123,4 @@ bind M-C comment main      # Komentar dari menu utama.
 bind M-I insert main       # Memasukkan dari menu utama.
 bind M-M recordmacro main  # Merekam atau memberhentikan macro dari menu utama.
 bind M-R runmacro main     # Menjalankan macro dari menu utama.
-bind M-W softwrap main     # Bungkus baris dari menu utama.
+bind M-S softwrap main     # Bungkus baris dari menu utama.
