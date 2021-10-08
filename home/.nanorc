@@ -8,11 +8,11 @@ unbind ^E all     #
 unbind ^F all     #
 unbind ^G all     #
 unbind ^H all     #
-# unbind ^I all   # `unbind' sama dengan tidak ada `Tab'.
+# unbind ^I all   # unbind sama dengan tidak ada TAB.
 unbind ^J all     #
 unbind ^K all     #
 unbind ^L all     #
-# unbind ^M all   # `unbind' sama dengan tidak ada `Enter'.
+# unbind ^M all   # unbind sama dengan tidak ada Enter.
 unbind ^N all     #
 unbind ^O all     #
 unbind ^P all     #
@@ -53,19 +53,19 @@ unbind M-M all     #
 unbind M-N all     #
 unbind M-O all     #
 unbind M-P all     #
-# unbind M-Q all   # `unbind' untuk mencari ke belakang.
+# unbind M-Q all   # unbind untuk mencari ke belakang.
 unbind M-R all     #
 unbind M-S all     #
 unbind M-T all     #
 unbind M-U all     #
 unbind M-V all     #
-# unbind M-W all   # `unbind' untuk mencari ke depan.
+# unbind M-W all   # unbind untuk mencari ke depan.
 unbind M-X all     #
 unbind M-Y all     #
 unbind M-Z all     #
 
 unbind F1 all     #
-# unbind F2 all   # `unbind' akan menolak mengeksekusi.
+# unbind F2 all   # unbind akan menolak mengeksekusi.
 unbind F3 all     #
 unbind F4 all     #
 unbind F5 all     #
@@ -81,19 +81,19 @@ unbind F12 all    #
 bind F3 findnext main      # Mencari kata berikutnya dari menu utama.
 bind F5 refresh main       # Memperbarui layar dari menu utama.
 
-set smarthome                    # `HOME' juga ke awal baris yang bukan `whitespace'.
-set tabsize 3                    # `tabsize' set menjadi 3.
-set tabstospaces                 # `TAB' dikonversi menjadi spasi.
+set smarthome                    # HOME juga ke awal baris yang bukan whitespace.
+set tabsize 3                    # tabsize set menjadi 3.
+set tabstospaces                 # Tab dikonversi menjadi spasi.
 set nonewlines                   # Tidak otomatis menambahkan baris baru.
 set constantshow                 # Menampilkan posisi kursor terus-menerus.
 set suspendable                  # Boleh menangguhkan proses.
-# set mouse                      # Nonaktifkan mode `Mouse' di Termux.
+# set mouse                      # Nonaktifkan mode Mouse di Termux.
 set zap                          # Boleh menghapus di dalam tanda.
-set regexp                       # Otomatis menggunakan `Regular Expression'.
-set casesensitive                # Otomatis menggunakan `Case Sensitive'.
-set trimblanks                   # Menghapus `whitespace' di akhir baris (saat `wrap' atau `justify').
+set regexp                       # Otomatis menggunakan Regular Expression.
+set casesensitive                # Otomatis menggunakan Case Sensitive.
+set trimblanks                   # Menghapus whitespace di akhir baris (saat wrap atau justify).
 set matchbrackets "(<[{`)>]}'"   # Mencari pasangan tanda kurung ((), [], {}, <>, `').
-set fill 71                      # Membatasi lebar teks (saat `wrap' atau `justify').
+set fill 71                      # Membatasi lebar teks (saat wrap atau justify).
 set afterends                    # Navigasi Ctrl + RIGHT_ARROW dan Ctrl + DELETE sampai akhir kata daripada awal kata.
 set indicator                    # Mengaktifkan Penggulir.
 
@@ -121,6 +121,6 @@ bind ^Z suspend main       # Menangguhkan dari menu utama.
 
 bind M-C comment main      # Komentar dari menu utama.
 bind M-I insert main       # Memasukkan dari menu utama.
-bind M-M recordmacro main  # Merekam atau memberhentikan `macro' dari menu utama.
-bind M-R runmacro main     # Menjalankan `macro' dari menu utama.
+bind M-M recordmacro main  # Merekam atau memberhentikan macro dari menu utama.
+bind M-R runmacro main     # Menjalankan macro dari menu utama.
 bind M-W softwrap main     # Bungkus baris dari menu utama.
