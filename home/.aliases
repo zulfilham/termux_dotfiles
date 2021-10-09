@@ -1,129 +1,57 @@
 #!/data/com.termux/files/usr/bin/bash
 
-# Functional aliases
-   alias apply="source ~/.bash_profile";
-   # Open new session in hacky way.
-   alias trigger-termux-session="am start -n com.termux/com.termux.filepicker.TermuxFileReceiverActivity -d file:///dev/null";
-   alias ssh-computer="ssh -p 22 $computer_address";     # see 'home/.path'
-   alias sftp-computer="sftp -P 22 $computer_address";   # see 'home/.path'
-   alias ls="$PREFIX/bin/ls -A --color=auto";
-   alias quit="exit 0; kill -9 $$";
+alias ssh-computer="ssh $COMPUTER_ADDRESS" \
+   sftp-computer="sftp $COMPUTER_ADDRESS" \
+   ssh-setup="ssh-copy-id $COMPUTER_ADDRESS" \
+   apply="source ~/.bash_profile" \
+   trigger-termux-session="am start -n com.termux/.filepicker.TermuxFileReceiverActivity -d file:///dev/null" \
+   grep="grep --color=always" \
+   diff="diff --color=always" \
+   ls="ls --almost-all --color=auto" \
+   grep="grep --color=auto" \
+   diff="diff --color=auto" \
+   rm="rm --interactive" \
+   mv="mv --interactive" \
+   cp="cp --interactive" \
+   rename="rename --interactive" \
+   imv="imv --interactive" \
+   icp="icp --interactive" \
+   .aliases="vim ~/.aliases" \
+   .auto_completion="vim ~/.auto_completion" \
+   .bashrc="vim ~/.bashrc" \
+   .bash_profile="vim ~/.bash_profile" \
+   .bash_logout="vim ~/.bash_logout" \
+   .bash_prompt="vim ~/.bash_prompt" \
+   .functions="vim ~/.functions" \
+   .git-credentials="vim ~/.git-credentials" \
+   .gitattributes="vim ~/.gitattributes" \
+   .gitconfig="vim ~/.gitconfig" \
+   .inputrc="vim ~/.inputrc" \
+   .export="vim ~/.export" \
+   .nanorc="nano ~/.nanorc" \
+   .vimrc="vim ~/.vimrc" \
+   nanorc="cd $NANORC; ls" \
+   vimrc="cd $VIMRC; ls" \
+   etc="cd $ETC; ls" \
+   bin="cd $BIN; ls" \
+   share="cd $SHARE; ls" \
+   internal="cd $INTERNAL; ls";
 
-# Shortcuts
-   # general
-   alias rm="rm -i";
-   alias mv="mv -i";
-   alias cp="cp -i";
-   alias cls="clear; ls";
-   alias clh="clear; cd; ls";
-   alias cphp="clear; php";
-   alias cbash="clear; bash";
-   alias cpython="clear; python";
-   alias cpython2="clear; python2";
-   alias ccat="clear; cat";
-   alias cfind="clear; find";
-   alias cgit="clear; git";
-   alias cgrep="clear; grep";
-   alias chead="clear; head";
-   alias cman="clear; man";
-   alias csed="clear; sed";
-   alias ctail="clear; tail";
-   alias ctree="clear; tree";
-   alias cvtshowkeys="clear; vtshowkeys";
-   alias .aliases="nano ~/.aliases";
-   alias .auto_completion="nano ~/.auto_completion";
-   alias .bashrc="nano ~/.bashrc";
-   alias .bash_profile="nano ~/.bash_profile";
-   alias .bash_prompt="nano ~/.bash_prompt";
-   alias .functions="nano ~/.functions";
-   alias .gitattributes="nano ~/.gitattributes";
-   alias .gitconfig="nano ~/.gitconfig";
-   alias .inputrc="nano ~/.inputrc";
-   alias .nanorc="nano ~/.nanorc";
-   alias .path="nano ~/.path";
+if [ -v EXTERNAL ]; then
+   alias external="cd $EXTERNAL; ls";
 
-   # nano syntax highlighting
-      alias bash.nanorc="nano $PREFIX/share/nano/bash.nanorc";
-      alias c.nanorc="nano $PREFIX/share/nano/c.nanorc";
-      alias php.nanorc="nano $PREFIX/share/nano/php.nanorc";
-      alias python.nanorc="nano $PREFIX/share/nano/python.nanorc";
-      alias txt.nanorc="nano $PREFIX/share/nano/txt.nanorc";
+   if [ -v EXTERNAL_STORAGE ]; then
+      alias external-storage="cd $EXTERNAL_STORAGE; ls";
+   fi;
+fi;
 
-   # path
-      alias internal="cd $internal; ls";
+nanorc_filenames=($(find $SHARE/nano -maxdepth 1 -type f -name \*.nanorc));
+nanorc_basenames=($(basename --multiple ${nanorc_filenames[@]}));
+nanorc=();
 
-      if [ -v external ]; then
-         alias external="cd $external; ls";
-         alias external-storage="cd $external_storage; ls";
-      fi;
+for i in ${!nanorc_basenames[@]}; do
+   nanorc+=(${nanorc_basenames[i]}=nano\ ${nanorc_filenames[i]});
+done;
 
-      alias nanorc="cd $PREFIX/share/nano; ls";
-
-# Git shortcuts
-   # general
-      alias ga="git add";
-      alias gb="git branch";
-      alias gco="git checkout";
-      alias gcp="git cherry-pick";
-      alias gcl="git clone";
-      alias gcln="git clean";
-      alias gcm="git commit";
-      alias gcf="git config";
-      alias gd="git diff";
-      alias gdt="git difftool";
-      alias gf="git fetch";
-      alias gh="git help";
-      alias gi="git init";
-      alias gl="git log";
-      alias glsf="git ls-files";
-      alias glst="git ls-tree";
-      alias gm="git merge";
-      alias gmv="git mv";
-      alias gpl="git pull";
-      alias gps="git push";
-      alias gr="git reset";
-      alias grb="git rebase";
-      alias grf="git reflog";
-      alias grmt="git remote";
-      alias grst="git restore";
-      alias grl="git rev-list";
-      alias grv="git revert";
-      alias grm="git rm";
-      alias gs="git status";
-      alias gsh="git show";
-      alias gsth="git stash";
-      alias gsw="git switch";
-
-   # With 'clear' command
-      alias cga="clear; git add";
-      alias cgb="clear; git branch";
-      alias cgco="clear; git checkout";
-      alias cgcp="clear; git cherry-pick";
-      alias cgcl="clear; git clone";
-      alias cgcln="clear; git clean";
-      alias cgcm="clear; git commit";
-      alias cgcf="clear; git config";
-      alias cgd="clear; git diff";
-      alias cgdt="clear; git difftool";
-      alias cgf="clear; git fetch";
-      alias cgh="clear; git help";
-      alias cgi="clear; git init";
-      alias cgl="clear; git log";
-      alias cglsf="clear; git ls-files";
-      alias cglst="clear; git ls-tree";
-      alias cgm="clear; git merge";
-      alias cgmv="clear; git mv";
-      alias cgpl="clear; git pull";
-      alias cgps="clear; git push";
-      alias cgr="clear; git reset";
-      alias cgrb="clear; git rebase";
-      alias cgrf="clear; git reflog";
-      alias cgrmt="clear; git remote";
-      alias cgrst="clear; git restore";
-      alias cgrl="clear; git rev-list";
-      alias cgrv="clear; git revert";
-      alias cgrm="clear; git rm";
-      alias cgs="clear; git status";
-      alias cgsh="clear; git show";
-      alias cgsth="clear; git stash";
-      alias cgsw="clear; git switch";
+alias "${nanorc[@]}";
+unset nanorc nanorc_filenames nanorc_basenames i;
