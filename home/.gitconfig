@@ -1,22 +1,27 @@
 [user]
-   email = code.zulfilham@gmail.com    # Your email is going to be different.
-   name = Zulfilham                    # Your name might be different as well.
+   email = code.zulfilham@gmail.com
+   name = Zulfilham
+
 [core]
-   editor = /data/data/com.termux/files/usr/bin/nano
+   editor = nano
    autocrlf = false
    eol = lf
 
    # uncomment this, to get rid of less' output after exiting
    # pager = less -+$LESS -R
+
 [alias]
-   log-graph = "log --all --graph --date=local"
-   log-verbose = "log --all --graph --date=local --stat-width=81"
-   log-oneline = "log --all --oneline --date=local --graph"
-   add-modified = "add -u"
+   add-all = "add --all"
+   add-modified = "add --update"
+   add-untracked = "!git ls-files -z --others --exclude-standard | git add --pathspec-file-nul --pathspec-from-file=-"
+   log-graph = "log --graph --date=local"
+   log-graph-all = "log --all --graph --date=local"
+   log-verbose = "log --graph --date=local --stat-width=81"
+   log-verbose-all = "log --all --graph --date=local --stat-width=81"
+   log-oneline = "log --oneline --date=local --graph"
+   log-oneline-all = "log --all --oneline --date=local --graph"
    ls-files-untracked = "ls-files --exclude-standard --others"
    ls-files-cached = "diff --cached --name-only"
 
-   # this alias only work if you have installed Perl on your machine.
-   add-untracked = "!echo \"a\n*\nq\n\" | git add -i > /dev/null"
 [pull]
    rebase = false
