@@ -1,20 +1,23 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# My Personal Exports
-export MYSQL_USERNAME="My MySQL USERNAME" \
-   MYSQL_PASSWORD="My MySQL PASSWORD" \
-   MYSQL_DIRNAME="My MySQL DIRNAME" \
-   COMPUTER_ADDRESS=Zulfilham@192.168.43.237;
+# Personal environment variables
+export \
+  COMPUTER_ADDRESS=Zulfilham@192.168.43.237 \
+  KEYREF=~/ENCRYPTION_KEY \
+  PROMPT_DIRTRIM=0 \
+  EDITOR=vim;
 
-# General
-   export COLUMNS LINES \
-   PROMPT_DIRTRIM=0 \
-   NANORC="$PREFIX/share/nano" \
-   VIMRC="$PREFIX/share/vim" \
+# General environment variables
+export COLUMNS LINES \
+   PATH="$PATH:~/bin" \
+   TERMUX=/data/data/com.termux \
+   FILES=$TERMUX/files \
    ETC="$PREFIX/etc" \
    BIN="$PREFIX/bin" \
    SHARE="$PREFIX/share" \
-   INTERNAL="/storage/emulated/0" \
+   NANORC="$PREFIX/share/nano" \
+   VIMRC="$PREFIX/share/vim" \
+   INTERNAL=/storage/emulated/0 \
    EXTERNAL=$(echo /storage/[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]);
 
 if [ -d $EXTERNAL ]; then
