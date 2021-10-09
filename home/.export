@@ -23,13 +23,13 @@ if [ -d $EXTERNAL ]; then
    if [ -e $EXTERNAL_STORAGE ]; then
       if [ ! -d $EXTERNAL_STORAGE ]; then
          if su --command "rm $EXTERNAL_STORAGE" &> /dev/null; then
-            su --command "mkdir $EXTERNAL_STORAGE";
+            su --command "mkdir -p $EXTERNAL_STORAGE";
          else
             unset EXTERNAL_STORAGE;
          fi;
       fi;
    else
-      if ! su --command "mkdir $EXTERNAL_STORAGE" &> /dev/null; then
+      if ! su --command "mkdir -p $EXTERNAL_STORAGE" &> /dev/null; then
          unset EXTERNAL_STORAGE;
       fi;
    fi;
