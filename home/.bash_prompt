@@ -1,40 +1,35 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 function git_prompt () {
-   local status branchname;
+   local status prompt;
 
    if status=$(git status 2>&1); then
-      branchname=$(git symbolic-ref --quiet --short HEAD || git rev-parse --short HEAD);
-      branchname="${branchname/'heads/stash'/'stash'}"
+      prompt="$(git symbolic-ref --quiet --short HEAD || git rev-parse --short HEAD)";
 
-      if [[ "$status" == *"nothing to commit"* ]]; then
-         if git rev-parse --verify stash &> /dev/null; then
-            branchname="$3$branchname$5"; # working directory is clean and there's a stash, in cyan.
+      if [[ "$status" == *nothing\ to\ commit* ]]; then
+         if ! git rev-parse --quiet --verify stash > /dev/null; then
+            prompt=$'\033[38;5;63;1m'"$prompt"$'\033[0m';
          else
-            branchname="$4$branchname$5"; # working directory is clean and no stashes, in blue.
+            prompt=$'\033[38;5;14;1m'"$prompt"$'\033[0m';
          fi;
       else
-         branchname="$2$branchname$5";    # working directory is dirty, in red.
+         prompt=$'\033[38;5;9;1m'"$prompt"$'\033[0m';
       fi;
-      local prompt=" $1 $branchname";
+      prompt=$' \033[38;5;15;1mon\033[0m '"$prompt";
    fi;
-   echo -n "$prompt$6";
+   echo "$prompt";
 }
 
-PS1="\n";
-
 if [ "$(whoami)" != "root" ]; then
-   PS1+="\[\e[38;5;202;1m\]"; # non-root user in orange.
+   PS1=$'\n\033[38;5;202;1m\u\033[0m';
 else
-   PS1+="\[\e[38;5;9;1m\]";   # root user in red.
+   PS1=$'\n\033[38;5;9;1m\u\033[0m';
 fi;
 
-PS1+="\u\[\e[0m\]@";
-
-if [ -z "$SSH_TTY" ]; then
-   PS1+="\[\e[38;5;226;1m\]\H\[\e[0m\]"; # ssh disconnected, hostname in yellow.
+if [ ! -v SSH_TTY ]; then
+   PS1+=$'@\033[38;5;226;1m\H\033[0m ';
 else
-   PS1+="\[\e[38;5;9;1m\]\H\[\e[0m\]";   # ssh connected, hostname in red.
+   PS1+=$'@\033[38;5;9;1m\H\033[0m ';
 fi;
 
-PS1+='\[\e[0m\] \[\e[38;5;15;1m\]in\[\e[0m\] \[\e[38;5;63;1m\]\w\[\e[0m\]$(git_prompt "\[\e[38;5;15;1m\]on\[\e[0m\]" "\[\e[38;5;9;1m\]" "\[\e[38;5;14;1m\]" "\[\e[38;5;12;1m\]" "\[\e[0m\]" "\n\[\e[38;5;15;1m\]$\[\e[0m\] ")';
+PS1+='\033[38;5;15;1min\033[0m \033[38;5;63;1m\w\033[0m$(git_prompt)\n\[\033[38;5;15;1m\]$\[\033[0m\] ';
