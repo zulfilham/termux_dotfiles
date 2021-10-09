@@ -1,38 +1,38 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # My Personal Exports
-   export MYSQL_USERNAME="My MySQL USERNAME";
-   export MYSQL_PASSWORD="My MySQL PASSWORD";
-   export MYSQL_DIRNAME="My MySQL DIRNAME";
-   export COMPUTER_ADDRESS=Zulfilham@192.168.43.237;
+export MYSQL_USERNAME="My MySQL USERNAME" \
+   MYSQL_PASSWORD="My MySQL PASSWORD" \
+   MYSQL_DIRNAME="My MySQL DIRNAME" \
+   COMPUTER_ADDRESS=Zulfilham@192.168.43.237;
 
 # General
-   export COLUMNS LINES;
-   export PROMPT_DIRTRIM=0;
-   export NANORC="$PREFIX/share/nano";
-   export VIMRC="$PREFIX/share/vim";
-   export ETC="$PREFIX/etc";
-   export BIN="$PREFIX/bin";
-   export SHARE="$PREFIX/share";
-   export INTERNAL="/storage/emulated/0";
-   export EXTERNAL=$(echo /storage/[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]);
+   export COLUMNS LINES \
+   PROMPT_DIRTRIM=0 \
+   NANORC="$PREFIX/share/nano" \
+   VIMRC="$PREFIX/share/vim" \
+   ETC="$PREFIX/etc" \
+   BIN="$PREFIX/bin" \
+   SHARE="$PREFIX/share" \
+   INTERNAL="/storage/emulated/0" \
+   EXTERNAL=$(echo /storage/[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]);
 
-   if [ -d $EXTERNAL ]; then
-      EXTERNAL_STORAGE=$EXTERNAL/Android/data/com.termux;
+if [ -d $EXTERNAL ]; then
+   EXTERNAL_STORAGE=$EXTERNAL/Android/data/com.termux;
 
-      if [ -e $EXTERNAL_STORAGE ]; then
-         if [ ! -d $EXTERNAL_STORAGE ]; then
-            if su --command "rm $EXTERNAL_STORAGE" &> /dev/null; then
-               su --command "mkdir $EXTERNAL_STORAGE";
-            else
-               unset EXTERNAL_STORAGE;
-            fi;
-         fi;
-      else
-         if ! su --command "mkdir $EXTERNAL_STORAGE" &> /dev/null; then
+   if [ -e $EXTERNAL_STORAGE ]; then
+      if [ ! -d $EXTERNAL_STORAGE ]; then
+         if su --command "rm $EXTERNAL_STORAGE" &> /dev/null; then
+            su --command "mkdir $EXTERNAL_STORAGE";
+         else
             unset EXTERNAL_STORAGE;
          fi;
       fi;
    else
-      unset EXTERNAL;
+      if ! su --command "mkdir $EXTERNAL_STORAGE" &> /dev/null; then
+         unset EXTERNAL_STORAGE;
+      fi;
    fi;
+else
+   unset EXTERNAL;
+fi;
