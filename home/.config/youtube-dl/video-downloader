@@ -1,0 +1,23 @@
+# Download best video format available but no better than 1080p
+--format=bestvideo[height<=1080]+bestaudio/best
+
+# Output filename: 402 Payment Required/GPG - 3 Verifying digital signatures.mp4
+--output="%(channel)s/%(title)s.%(ext)s"
+
+# Download available subtitle (also one that automatically generated)
+--write-sub --write-auto-sub
+
+# Languages of the subtitles to download: English and Indonesian
+--sub-lang=en,id
+
+# Convert the subtitles to srt format
+--convert-subs=srt
+
+# Embed subtitles in the video
+--embed-subs
+
+# Encode the video to mp4 format if necessary
+--recode-video=mp4
+
+# If a merge is required, output to mp4 format
+--merge-output-format=mp4

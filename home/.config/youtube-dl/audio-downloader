@@ -1,0 +1,14 @@
+# Download best audio format available
+--format=bestaudio
+
+# Output filename: Hinkik/Hinkik - Ena.mp3
+--output="%(channel)s/%(title)s.%(ext)s"
+
+# Convert video files to audio-only files
+--extract-audio
+
+# Specify audio format: mp3
+--audio-format=mp3
+
+# Specify ffmpeg audio quality: 0 (best)
+--audio-quality=0
