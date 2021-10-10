@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-function git_prompt () {
+function __git_prompt () {
    local status prompt;
 
    if status=$(git status 2>&1); then
@@ -32,4 +32,4 @@ else
    PS1+=$'@\033[38;5;9;1m\H\033[0m ';
 fi;
 
-PS1+='\033[38;5;15;1min\033[0m \033[38;5;63;1m\w\033[0m$(git_prompt)\n\[\033[38;5;15;1m\]$\[\033[0m\] ';
+PS1+='\033[38;5;15;1min\033[0m \033[38;5;63;1m\w\033[0m$(__git_prompt)\n\[\033[38;5;15;1m\]$\[\033[0m\] ';
