@@ -2,5 +2,5 @@
 
 if (($(pgrep -c bash) == 1)); then
    pkill "crond|sshd";
-   termux-wake-unlock;
+   termux-wake-unlock&
 fi;
