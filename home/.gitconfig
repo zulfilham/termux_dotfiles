@@ -1,6 +1,7 @@
+# Personal Git configuration
 [user]
+   name = zulfilham
    email = code.zulfilham@gmail.com
-   name = Zulfilham
 
 [core]
    editor = nano
@@ -11,17 +12,22 @@
    # pager = less -+$LESS -R
 
 [alias]
-   add-all = "add --all"
-   add-modified = "add --update"
-   add-untracked = "!git ls-files -z --others --exclude-standard | git add --pathspec-file-nul --pathspec-from-file=-"
-   log-graph = "log --graph --date=local"
-   log-graph-all = "log --all --graph --date=local"
-   log-verbose = "log --graph --date=local --stat-width=81"
-   log-verbose-all = "log --all --graph --date=local --stat-width=81"
-   log-oneline = "log --oneline --date=local --graph"
-   log-oneline-all = "log --all --oneline --date=local --graph"
-   ls-files-untracked = "ls-files --exclude-standard --others"
-   ls-files-cached = "diff --cached --name-only"
+   add-all = add --all
+   add-modified = add --update
+   add-untracked = !git ls-files -z --others --exclude-standard | git add --pathspec-file-nul --pathspec-from-file=-
+   log-graph = log --graph --date=local
+   log-graph-all = log --all --graph --date=local
+   log-verbose = log --graph --date=local --stat-width=81
+   log-verbose-all = log --all --graph --date=local --stat-width=81
+   log-oneline = log --oneline --date=local --graph
+   log-oneline-all = log --all --oneline --date=local --graph
+   ls-files-untracked = ls-files --exclude-standard --others
+   ls-files-cached = diff --cached --name-only
+
+# General Git configuration
+[core]
+   autocrlf = false
+   eol = lf
 
 [pull]
    rebase = false
