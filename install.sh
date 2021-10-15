@@ -12,7 +12,7 @@ function main () {
    pkg up;
 
    # Personal installation
-   apt-get install --assume-yes atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip imagemagick info jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner tree unzip vim vtutils xxhash xz-utils zip;
+   apt-get install atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip imagemagick info jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner tree unzip vim vtutils xxhash xz-utils zip;
 
    if (($? == 0)); then
       pip install youtube-dl;
