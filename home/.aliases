@@ -3,6 +3,7 @@
 # Personal aliases
 alias ssh-computer="ssh -p 8022 \"$COMPUTER_ADDRESS\"" \
    sftp-computer="sftp -p 8022 \"$COMPUTER_ADDRESS\"" \
+   rsync-computer="rsync --rsh=\"ssh -p 8022\"" \
    youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video-downloader" \
    youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio-downloader" \
    .aliases="$EDITOR ~/.aliases" \
