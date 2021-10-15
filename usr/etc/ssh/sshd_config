@@ -1,0 +1,8 @@
+# Personal SSH daemon configuration
+PasswordAuthentication no
+Port 8022
+PermitUserEnvironment yes
+
+# General SSH daemon configuration
+PrintMotd yes
+Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
