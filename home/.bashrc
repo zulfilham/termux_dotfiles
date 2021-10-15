@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-if ! pidof -q sshd; then sshd -p 8022 &> /dev/null; fi;
+if ! pidof -q sshd; then sshd &> /dev/null; fi;
 if ! pidof -q crond; then crond &> /dev/null; fi;
 if (($(pgrep --count bash) == 1)); then (termux-wake-lock&) > /dev/null; fi;
 
