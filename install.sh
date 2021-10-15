@@ -9,7 +9,14 @@ function main () {
       return 1;
    fi;
    local FILES="$(dirname "$PREFIX")" DIRNAME="$(dirname "$0")";
-   pkg install --assume-yes coreutils termux-am termux-tools procps diffutils nano vim;
+   pkg up;
+
+   # Personal installation
+   apt-get install --assume-yes atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file git grep gzip imagemagick jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner tree unzip vim vtutils xxhash xz-utils zip;
+   pip install youtube-dl;
+
+   # General installation
+   apt-get install --assume-yes coreutils diffutils findutils gnupg nano procps termux-am termux-tools;
    cp --archive --backup=numbered --target-directory="$FILES" -- "$DIRNAME/home";
    cp --archive --backup=numbered --target-directory="$FILES" -- "$DIRNAME/usr";
 }
