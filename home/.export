@@ -11,7 +11,7 @@ export \
 export COLUMNS LINES \
    PATH="$PATH:~/bin" \
    TERMUX=/data/data/com.termux \
-   FILES=$TERMUX/files \
+   FILES=/data/data/com.termux/files \
    ETC="$PREFIX/etc" \
    BIN="$PREFIX/bin" \
    SHARE="$PREFIX/share" \
