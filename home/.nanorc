@@ -2,6 +2,7 @@ include "/data/data/com.termux/files/usr/share/nano/*.nanorc"
 
 set smarthome
 set tabsize 3
+set tabstospaces
 set nonewlines
 set historylog
 set constantshow
