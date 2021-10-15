@@ -1,3 +1,15 @@
+# Prefer ffmpeg over avconv for running the postprocessors
+--prefer-ffmpeg
+
+# Force resume of partially downloaded files
+--continue
+
+# Write metadata to the video file
+--add-metadata
+
+# Embed thumbnail in the audio as cover art
+--embed-thumbnail
+
 # Download best video format available but no better than 1080p
 --format=bestvideo[height<=1080]+bestaudio/best
 
