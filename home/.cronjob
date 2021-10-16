@@ -49,7 +49,7 @@ EOF
 }
 
 function ssh_connect() {
-   MESSAGE="$(ssh -p 8022 "$COMPUTER_ADDRESS" "${1:-exit}" 2>&1)";
+   MESSAGE="$(ssh -p 8022 "$COMPUTER_ADDRESS" exit 2>&1)";
 
    if (($? > 0)); then
       echo -e "Fatal: SSH connection cannot be established\n$MESSAGE" 1>&2;
@@ -58,17 +58,17 @@ function ssh_connect() {
 }
 
 function copy() {
-   if ssh_connect "mkdir --parents -- \"${DESTINATION//\"/\\\"}\""; then
-      MESSAGE="$(rsync "$@" --archive --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
+   if ssh_connect; then
+      MESSAGE="$(rsync "$@" --archive --mkpath --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
    else
       return 1;
    fi;
 }
 
 function sync() {
-   if ssh_connect "mkdir --parents -- \"${DESTINATION//\"/\\\"}\""; then
-      MESSAGE="$(rsync --archive --update --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
-      MESSAGE="$(rsync --archive --update --rsh="ssh -p 8022" -- "$COMPUTER_ADDRESS:$DESTINATION/" "$SOURCE/" 2>&1)" || return 1;
+   if ssh_connect; then
+      MESSAGE="$(rsync --archive --mkpath --update --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --update --rsh="ssh -p 8022" -- "$COMPUTER_ADDRESS:$DESTINATION/" "$SOURCE/" 2>&1)" || return 1;
    else
       return 1;
    fi;
