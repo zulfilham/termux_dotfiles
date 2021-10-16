@@ -59,7 +59,7 @@ function ssh_connect() {
 
 function copy() {
    if ssh_connect; then
-      MESSAGE="$(rsync "$@" --archive --mkpath --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --rsh="ssh -p 8022" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
    else
       return 1;
    fi;
