@@ -5,6 +5,8 @@ alias ssh-computer="ssh -p 8022 \"$COMPUTER_ADDRESS\"" \
    scp-computer="scp -pP 8022" \
    sftp-computer="sftp -pP 8022 \"$COMPUTER_ADDRESS\"" \
    rsync-computer="rsync --rsh=\"ssh -p 8022\"" \
+   mirror-audios="rsync --delete --archive --rsh=\"ssh -p 8022\" $EXTERNAL_STORAGE/Audios $COMPUTER_ADDRESS:/e/Zulfilham" \
+   mirror-gameguardian_scripts="rsync --delete --archive --rsh=\"ssh -p 8022\" \"$INTERNAL/GameGuardian Scripts\" $COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham" \
    youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video-downloader" \
    youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio-downloader" \
    .aliases="$EDITOR ~/.aliases" \
