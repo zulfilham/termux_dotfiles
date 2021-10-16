@@ -40,8 +40,10 @@ EOF
    else
       COMMAND="${COMMAND//\\/\\\\}";
       COMMAND="${COMMAND//\&/\\\&}";
+      COMMAND="${COMMAND//$'\n'/\\x0a}";
       MESSAGE="${MESSAGE//\\/\\\\}";
       MESSAGE="${MESSAGE//\&/\\\&}";
+      MESSAGE="${MESSAGE//$'\n'/\\x0a}";
       sed --null-data --in-place \
       "s/-\{72\}/\x00/g; s/Command:[[:space:]]*[^\x00]\+[[:space:]]*Date:[[:space:]]*$DATE[^\x00]*[[:space:]]*Status:[[:space:]]*RUNNING[[:space:]]*Message:[[:space:]]*[^\x00]*/Command: ${COMMAND//\//\\\/}\x0aDate:    $DATE -> $(date "+%F %T %Z")\x0aStatus:  $1\x0aMessage: ${MESSAGE//\//\\\/}\x0a\x0a/; s/\x00/------------------------------------------------------------------------/g" \
       -- ~/.cronlog;
@@ -59,7 +61,7 @@ function ssh_connect() {
 
 function copy() {
    if ssh_connect; then
-      MESSAGE="$(rsync --archive --mkpath --rsh="ssh -p 8022" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --rsh="ssh -p 8022" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
    else
       return 1;
    fi;
@@ -67,8 +69,8 @@ function copy() {
 
 function sync() {
    if ssh_connect; then
-      MESSAGE="$(rsync --archive --mkpath --update --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
-      MESSAGE="$(rsync --archive --mkpath --update --rsh="ssh -p 8022" -- "$COMPUTER_ADDRESS:$DESTINATION/" "$SOURCE/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --update --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --update --rsh="ssh -p 8022" -- "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" "$SOURCE/" 2>&1)" || return 1;
    else
       return 1;
    fi;
