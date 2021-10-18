@@ -5,8 +5,8 @@ alias ssh-computer="ssh -p 8022 \"$COMPUTER_ADDRESS\"" \
    scp-computer="scp -pP 8022" \
    sftp-computer="sftp -pP 8022 \"$COMPUTER_ADDRESS\"" \
    rsync-computer="rsync --rsh=\"ssh -p 8022\"" \
-   youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video-downloader" \
-   youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio-downloader" \
+   youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video.conf" \
+   youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio.conf" \
    .aliases="$EDITOR ~/.aliases" \
    .auto_completion="$EDITOR ~/.auto_completion" \
    .bashrc="$EDITOR ~/.bashrc" \
