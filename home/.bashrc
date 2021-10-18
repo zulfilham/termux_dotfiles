@@ -1,9 +1,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-if ! pidof -q sshd; then sshd &> /dev/null; fi;
+# Personal run commands
+if ! pidof -q sshd; then sshd &> /dev/null && env > ~/.ssh/environment; fi;
 if ! pidof -q crond; then crond &> /dev/null; fi;
-if (($(pgrep --count bash) == 1)); then (termux-wake-lock&) > /dev/null; fi;
-env > ~/.ssh/environment;
+
+# General run commands
+if (($(pgrep --count --exact bash) == 1)); then (termux-wake-lock&); fi;
 
 for filename in ~/.{export,aliases,auto_completion,bash_prompt,functions}; do
    if [ -r $filename ]; then
