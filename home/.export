@@ -10,6 +10,7 @@ export \
 # General environment variables
 export COLUMNS LINES \
    PATH="$PATH:~/bin" \
+   HISTCONTROL=ignoreboth \
    TERMUX=/data/data/com.termux \
    FILES=/data/data/com.termux/files \
    ETC="$PREFIX/etc" \
