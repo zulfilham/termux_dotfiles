@@ -7,6 +7,9 @@ alias .aliases="$EDITOR ~/.aliases" \
    .bash_logout="$EDITOR ~/.bash_logout" \
    .bash_profile="$EDITOR ~/.bash_profile" \
    .bash_prompt="$EDITOR ~/.bash_prompt" \
+   .cronjob="$EDITOR ~/.cronjob" \
+   .cronlog="$EDITOR ~/.cronlog" \
+   .crontab="$EDITOR ~/.crontab" \
    .export="$EDITOR ~/.export" \
    .functions="$EDITOR ~/.functions" \
    .gitattributes="$EDITOR ~/.gitattributes" \
@@ -22,6 +25,7 @@ alias .aliases="$EDITOR ~/.aliases" \
 
 # General aliases
 alias apply="source ~/.bashrc" \
+   disk-free="/system/bin/df -h $INTERNAL $EXTERNAL" \
    cp="cp --interactive" \
    mv="mv --interactive" \
    rm="rm --interactive" \
