@@ -9,19 +9,19 @@
 # * * * * * command
 
 # Copy Termux to Computer “Once an hour from 21-03”
-0 21-23,0,3 * * * bash ~/.cronjob copy termux;
+0 21-23,0,3 * * * bash -l ~/.cronjob copy termux;
 
 # Copy Internal Storage to Computer “At 00:00”
-0 0 * * * bash ~/.cronjob copy internal;
+0 0 * * * bash -l ~/.cronjob copy internal;
 
 # Copy External Storage to Computer “At 00:00”
-0 0 * * * bash ~/.cronjob copy external;
+0 0 * * * bash -l ~/.cronjob copy external;
 
 # Sync GameGuardian Scripts with Computer “Every 2 hours”
-0 */2 * * * bash ~/.cronjob sync gameguardian_scripts;
+0 */2 * * * bash -l ~/.cronjob sync gameguardian_scripts;
 
 # Sync Audios with Computer “Every 3 hours”
-0 */3 * * * bash ~/.cronjob sync audios;
+0 */3 * * * bash -l ~/.cronjob sync audios;
 
 # Remove Garbage “Every 20 minutes from 06-12, 15-18, and 21-00”
-*/20 6-12,15-18,21-23,0 * * * bash ~/.cronjob remove garbage;
+*/20 6-12,15-18,21-23,0 * * * bash -l ~/.cronjob remove garbage;

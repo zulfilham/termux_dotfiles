@@ -99,7 +99,7 @@ function main() {
       return 1;
    fi;
 
-   COMMAND="bash $0 $1 $2";
+   COMMAND="bash -l $0 $1 $2";
    DATE=$(date "+%F %T %Z");
    STATUS=RUNNING;
 
