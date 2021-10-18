@@ -2,7 +2,7 @@
 
 # Personal run commands
 if ! pidof -q sshd; then sshd &> /dev/null && env > ~/.ssh/environment; fi;
-if ! pidof -q crond; then crond &> /dev/null; fi;
+if ! pidof -q crond; then crond &> /dev/null && crontab ~/.crontab; fi;
 
 # General run commands
 if (($(pgrep --count --exact bash) == 1)); then (termux-wake-lock&); fi;
