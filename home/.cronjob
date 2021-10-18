@@ -14,12 +14,12 @@ Valid commands are:
 
 Valid objects are:
 
-   ${chars[bold]}termux${chars[normal]}                  (only ${chars[bold]}copy${chars[normal]})
-   ${chars[bold]}internal${chars[normal]}                (only ${chars[bold]}copy${chars[normal]})
-   ${chars[bold]}external${chars[normal]}                (only ${chars[bold]}copy${chars[normal]})
-   ${chars[bold]}gameguardian_scripts${chars[normal]}    (only ${chars[bold]}sync${chars[normal]})
-   ${chars[bold]}audios${chars[normal]}                  (only ${chars[bold]}sync${chars[normal]})
-   ${chars[bold]}garbage${chars[normal]}                 (only ${chars[bold]}remove${chars[normal]})
+   ${chars[bold]}termux${chars[normal]}                  (${chars[bold]}copy${chars[normal]} only)
+   ${chars[bold]}internal${chars[normal]}                (${chars[bold]}copy${chars[normal]} only)
+   ${chars[bold]}external${chars[normal]}                (${chars[bold]}copy${chars[normal]} only)
+   ${chars[bold]}gameguardian_scripts${chars[normal]}    (${chars[bold]}sync${chars[normal]} only)
+   ${chars[bold]}audios${chars[normal]}                  (${chars[bold]}sync${chars[normal]} only)
+   ${chars[bold]}garbage${chars[normal]}                 (${chars[bold]}remove${chars[normal]} only)
 
 Author: Zulfilham <code.zulfilham@gmail.com>
 EOF
