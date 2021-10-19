@@ -8,7 +8,6 @@ function main () {
       echo "Fatal: Unknown platform, this configuration only valid for Termux" 1>&2;
       return 1;
    fi;
-   local dirname="$(dirname "$0")";
    apt-get update --assume-yes;
 
    # Personal installation
@@ -17,8 +16,7 @@ function main () {
 
    # General installation
    apt-get install --assume-yes coreutils diffutils gnupg nano procps termux-am termux-tools;
-   cp --archive --backup=numbered --target-directory ~/.. -- "$dirname/home";
-   cp --archive --backup=numbered --target-directory ~/.. -- "$dirname/usr";
+   cp --archive --backup=numbered -- "$(dirname "$0")"/{home,usr} ~/..;
 }
 
 main "$@";
