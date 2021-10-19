@@ -2,25 +2,25 @@
 
 # Personal functions
 function copy_termux() {
-   rsync --archive --rsh="ssh -p 8022" "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
+   rsync --archive "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
 }
 
 function copy_internal() {
-   rsync --archive --rsh="ssh -p 8022" "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/Internal Storage/files/\"";
+   rsync --archive "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/Internal Storage/files/\"";
 }
 
 function copy_external() {
-   rsync --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/External Storage/files/\"";
+   rsync --archive "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/External Storage/files/\"";
 }
 
 function sync_gameguardian_scripts() {
-   rsync --archive --update --rsh="ssh -p 8022" "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
-   rsync --archive --update --rsh="ssh -p 8022" "$@" -- "$COMPUTER_ADDRESS:\"/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts\"" $INTERNAL;
+   rsync --archive --update "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
+   rsync --archive --update "$@" -- "$COMPUTER_ADDRESS:\"/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts\"" $INTERNAL;
 }
 
 function sync_audios() {
-   rsync --archive --update --rsh="ssh -p 8022" "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
-   rsync --archive --update --rsh="ssh -p 8022" "$@" -- "$COMPUTER_ADDRESS:/e/Zulfilham/Audios" $EXTERNAL_STORAGE;
+   rsync --archive --update "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
+   rsync --archive --update "$@" -- "$COMPUTER_ADDRESS:/e/Zulfilham/Audios" $EXTERNAL_STORAGE;
 }
 
 function remove_garbage() {
@@ -28,23 +28,23 @@ function remove_garbage() {
 }
 
 function mirror_termux() {
-   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
+   rsync --delete --archive "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
 }
 
 function mirror_internal() {
-   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/Internal Storage/files/\"";
+   rsync --delete --archive "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/Internal Storage/files/\"";
 }
 
 function mirror_external() {
-   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/External Storage/files/\"";
+   rsync --delete --archive "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/External Storage/files/\"";
 }
 
 function mirror_gameguardian_scripts() {
-   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
+   rsync --delete --archive "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
 }
 
 function mirror_audios() {
-   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
+   rsync --delete --archive "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
 }
 
 # General functions
