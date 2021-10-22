@@ -101,8 +101,8 @@ function compare () {
 # This function used for set session/terminal title.
 # Usage: set_title <title>
 function set_title () {
-   if (( $# == 1 )); then
-      echo -en "\e]0;$1\007";
+   if (($# > 0)); then
+      echo -en "\e]0;$@\007";
    else
       echo "Fatal error: set_title expected exactly 1 parameter, $# given." >&2;
       return 1;
