@@ -14,7 +14,7 @@ function cld () {
    local options=();
 
    for option in "$@"; do
-      if [ -e "$option" ] && [ -d "$option" ]; then
+      if [ -d "$option" ]; then
          if [ ! -v directory ]; then
             directory="$option";
          else
@@ -52,7 +52,7 @@ function celd () {
    local options=();
 
    for option in "$@"; do
-      if [ -e "$option" ] && [ -d "$option" ]; then
+      if [ -d "$option" ]; then
          if [ ! -v directory ]; then
             directory="$option";
          else
