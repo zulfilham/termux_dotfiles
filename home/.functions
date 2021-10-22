@@ -1,7 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# This function used for comparing 2 files whether it is equal or not.
-# Usage: compare [--] <file1> <file2>
 function compare () {
    if cmp -s "$@"; then
       echo "TRUE";
@@ -11,8 +9,14 @@ function compare () {
    fi;
 }
 
-# This function used for set session/terminal title.
-# Usage: set_title <title>
-function set_title () {
+function apk-install() {
+   am start -n com.google.android.packageinstaller/com.android.packageinstaller.PackageInstallerActivity -d "file://$(realpath "$1")" > /dev/null;
+}
+
+function apk-uninstall() {
+   am start -n com.google.android.packageinstaller/com.android.packageinstaller.UninstallerActivity -d "$1" > /dev/null;
+}
+
+function set_title() {
    echo -en "\e]0;$@\007";
 }
