@@ -1,14 +1,14 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# This function equals to `cd <dirname> && ls <dirname> [options]',
-# any option that you passed will be used for `ls' command.
+# This function equals to cd <dirname> && ls [options]
+# any option that you pass will be used for ls command.
 #
 # For instance:
-#    `cld $internal/Download -AR;'
+#    cld $internal/Download -AR;
 #
 # that's exactly the same as:
-#    `cd $internal/Download -AR && ls -AR;'
-# Usage: cld [<dirname> [options]|[options] <dirname>]
+#    cd $internal/Download && ls -AR;
+# Usage: cld [options] <dirname>
 function cld () {
    local directory option false_option;
    local options=();
@@ -22,7 +22,7 @@ function cld () {
             return 1;
          fi;
       elif [ "$option" == "--help" ]; then
-         echo "Fatal error: cld expected a valid option, \`help' is not a valid option." >&2;
+         echo "Fatal error: cld expected a valid option, 'help' is not a valid option." >&2;
          return 1;
       else
          options+=("$option");
@@ -32,7 +32,7 @@ function cld () {
    if [ -v directory ]; then
       if ! false_option=$(ls "${options[@]}" 2>&1); then
          false_option=$(echo "$false_option" | grep -oP "(?<=-- ).+$");
-         echo "Fatal error: cld expected a valid option, \`$false_option' is not a valid option." >&2;
+         echo "Fatal error: cld expected a valid option, '$false_option' is not a valid option." >&2;
          return 1;
       else
          cd "$directory";
@@ -44,7 +44,7 @@ function cld () {
    fi;
 }
 
-# This function is similarly to `cld' unless it'll clear the screen
+# This function is similarly to cld unless it'll clear the screen
 # first.
 # Usage: celd [<dirname> [options]|[options] <dirname>]
 function celd () {
@@ -60,7 +60,7 @@ function celd () {
             return 1;
          fi;
       elif [ "$option" == "--help" ]; then
-         echo "Fatal error: celd expected a valid option, \`help' is not a valid option." >&2;
+         echo "Fatal error: celd expected a valid option, 'help' is not a valid option." >&2;
          return 1;
       else
          options+=("$option");
@@ -70,7 +70,7 @@ function celd () {
    if [ -v directory ]; then
       if ! false_option=$(ls "${options[@]}" 2>&1); then
          false_option=$(echo "$false_option" | grep -oP "(?<=-- ).+$");
-         echo "Fatal error: celd expected a valid option, \`$false_option' is not a valid option." >&2;
+         echo "Fatal error: celd expected a valid option, '$false_option' is not a valid option." >&2;
          return 1;
       else
          clear;
