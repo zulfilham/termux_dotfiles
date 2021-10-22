@@ -42,7 +42,7 @@ unbind M-B all     #
 unbind M-C all     #
 unbind M-D all     #
 unbind M-E all     #
-unbind M-F all     #
+unbind M-F main    # main untuk  menambahkan banyak buffer.
 unbind M-G all     #
 unbind M-H all     #
 unbind M-I all     #
@@ -83,7 +83,7 @@ bind F5 refresh main       # Memperbarui layar dari menu utama.
 
 set smarthome                    # HOME juga ke awal baris yang bukan whitespace.
 set tabsize 3                    # tabsize set menjadi 3.
-set tabstospaces                 # Tab dikonversi menjadi spasi.
+set tabstospaces                 # TAB dikonversi menjadi spasi.
 set nonewlines                   # Tidak otomatis menambahkan baris baru.
 set constantshow                 # Menampilkan posisi kursor terus-menerus.
 set suspendable                  # Boleh menangguhkan proses.
@@ -96,6 +96,7 @@ set matchbrackets "(<[{`)>]}'"   # Mencari pasangan tanda kurung ((), [], {}, <>
 set fill 71                      # Membatasi lebar teks (saat wrap atau justify).
 set afterends                    # Navigasi Ctrl + RIGHT_ARROW dan Ctrl + DELETE sampai akhir kata daripada awal kata.
 set indicator                    # Mengaktifkan Penggulir.
+set unix                         # Menyimpan berkas dalam format unix.
 
 bind ^C cancel all         # Membatalkan dari mana saja.
 
@@ -121,6 +122,7 @@ bind ^Z suspend main       # Menangguhkan dari menu utama.
 
 bind M-C comment main      # Komentar dari menu utama.
 bind M-I insert main       # Memasukkan dari menu utama.
-bind M-M recordmacro main  # Merekam atau memberhentikan macro dari menu utama.
+bind M-N recordmacro main  # Merekam atau memberhentikan macro dari menu utama.
+bind M-M mouse main        # Mengganti mode mouse dari menu utama.
 bind M-R runmacro main     # Menjalankan macro dari menu utama.
 bind M-S softwrap main     # Bungkus baris dari menu utama.
