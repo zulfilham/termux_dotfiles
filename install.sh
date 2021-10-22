@@ -8,8 +8,8 @@ function main () {
       echo "Fatal: Unknown platform, this configuration only valid for Termux" 1>&2;
       return 1;
    fi;
-   local FILES="$(dirname "$PREFIX")" DIRNAME="$(dirname "$0")";
-   pkg up;
+   local dirname="$(dirname "$0")";
+   apt-get update --assume-yes;
 
    # Personal installation
    apt-get install atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip imagemagick jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner texinfo tree unzip vim vtutils xxhash xz-utils zip && \
@@ -17,8 +17,8 @@ function main () {
 
    # General installation
    apt-get install --assume-yes coreutils diffutils gnupg nano procps termux-am termux-tools;
-   cp --archive --backup=numbered --target-directory="$FILES" -- "$DIRNAME/home";
-   cp --archive --backup=numbered --target-directory="$FILES" -- "$DIRNAME/usr";
+   cp --archive --backup=numbered --target-directory ~/.. -- "$dirname/home";
+   cp --archive --backup=numbered --target-directory ~/.. -- "$dirname/usr";
 }
 
 main "$@";
