@@ -1,0 +1,54 @@
+## Syntax highlighting for Bourne-Again shell scripts
+
+syntax bash "\.sh$"
+header "^#!((/data/data/com.termux/files)?/usr|/system)?/bin/bash$"
+magic "(POSIX|Bourne-Again) shell script.*text"
+comment "# "
+
+# Commands
+color brightblue "(^|\$?\(|\|\|?|&&?|[;`{])[[:blank:]]*\b[[:alnum:]-]+\b" "(if|then|while|do|!)[[:blank:]]+\b[[:alnum:]-]+\b"
+
+# Function declarations
+color brightgreen "(function[[:blank:]]+)?[[:alnum:]_-]+[[:blank:]]*\("
+
+# Keywords, symbols, and comparisons
+color green "\b(break|case|continue|do|done|elif|else|esac|exit|fi|for|function|if|in|read|return|select|shift|then|time|until|while)\b"
+color green "\b(declare|eval|exec|export|let|local)\b"
+color green "[{}():;|`$<>!=&\\]" "(\]|\[)"
+
+# Short and long options
+color brightmagenta "[[:blank:]](-[[:alnum:]]+|--[[:alnum:]-]+)\b"
+
+# Arithmetic Expressions
+color normal "\(\([^;]*;[^;]*;[^;]*\)\)"
+
+# Redirection operators
+color normal ">&[^[:blank:]]+"
+color green ">&"
+
+# Variable, alias names initialization
+color normal "[[:alnum:]_.-]+(\[[^]]+\])?[-+/*<>]?="
+color green "[-+/*<>]?="
+
+# Strings
+color brightyellow ""(\\.|[^"])*"" "'(\\.|[^'])*'"
+
+# Heredoc
+color normal "<<[[:blank:]]*EOF$"
+color brightyellow start="EOF$" end="^EOF$"
+
+# Basic variable names (no braces)
+color brightred "\$[-0-9@*#?$!]" "\$[[:alpha:]_][[:alnum:]_]*"
+
+# More complicated variable names; handles braces and replacements and arrays
+color brightred "\$\{[#!]?([-@*#?$!]|[0-9]+|[[:alpha:]_][[:alnum:]_]*)(\[([[:blank:]]*[[:alnum:]_]+[[:blank:]]*|@)\])?(([#%/]|:?[-=?+])[^}]*\}|\[|\})"
+
+# Comments
+color cyan "(^|[[:blank:]])#.*"
+
+# Nowdoc
+color normal "<<[[:blank:]]*'EOF'$"
+color brightyellow start="'EOF'$" end="^EOF$"
+
+# Trailing whitespace
+color ,green "[[:blank:]]+$"
