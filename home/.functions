@@ -1,12 +1,23 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-function compare () {
-   if cmp -s "$@"; then
-      echo "TRUE";
-   else
-      echo "FALSE";
+function compare() {
+   if (($# != 2)); then
+      echo "Fatal: Expected exactly 2 arguments, $# given" 1>&2;
+      return 1;
+   elif [ ! -e "$1" ]; then
+      echo "Fatal: '${1//\'/\'\\\'\'}': No such file or directory" 1>&2;
+      return 1;
+   elif [ ! -e "$2" ]; then
+      echo "Fatal: '${2//\'/\'\\\'\'}': No such file or directory" 1>&2;
+      return 1;
+   elif [ -d "$1" ]; then
+      echo "Fatal: '${2//\'/\'\\\'\'}': Is a directory" 1>&2;
+      return 1;
+   elif [ -d "$2" ]; then
+      echo "Fatal: '${2//\'/\'\\\'\'}': Is a directory" 1>&2;
       return 1;
    fi;
+   cmp --silent -- "$1" "$2" && echo $'\x1b[32midentical\x1b[0m' 1>&2 || echo $'\x1b[31mdifferent\x1b[0m' 1>&2;
 }
 
 function apk-install() {
