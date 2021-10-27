@@ -24,7 +24,7 @@ function sync_audios() {
 }
 
 function remove_garbage() {
-   rm --force --recursive -- /storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs};
+   rm --force --recursive "$@" -- /storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs};
 }
 
 function mirror_termux() {
