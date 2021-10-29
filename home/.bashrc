@@ -4,7 +4,7 @@
 if (($(pgrep --count --exact bash) == 1)); then (termux-wake-lock&); fi;
 shopt -s histappend histverify;
 
-for filename in ~/.{export,aliases,auto_completion,bash_prompt,functions}; do
+for filename in ~/.{exports,aliases,auto_completion,bash_prompt,functions}; do
    if [ -r $filename ]; then
       source $filename;
    fi;
