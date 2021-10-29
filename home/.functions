@@ -185,17 +185,11 @@ function compare() {
    if (($# != 2)); then
       echo "Fatal: Expected exactly 2 arguments, $# given" 1>&2;
       return 1;
-   elif [ ! -e "$1" ]; then
-      echo "Fatal: '${1//\'/\'\\\'\'}': No such file or directory" 1>&2;
+   elif [ ! -f "$1" ]; then
+      echo "Fatal: '${1//\'/\'\\\'\'}': Not a regular file" 1>&2;
       return 1;
-   elif [ ! -e "$2" ]; then
-      echo "Fatal: '${2//\'/\'\\\'\'}': No such file or directory" 1>&2;
-      return 1;
-   elif [ -d "$1" ]; then
-      echo "Fatal: '${2//\'/\'\\\'\'}': Is a directory" 1>&2;
-      return 1;
-   elif [ -d "$2" ]; then
-      echo "Fatal: '${2//\'/\'\\\'\'}': Is a directory" 1>&2;
+   elif [ ! -f "$2" ]; then
+      echo "Fatal: '${2//\'/\'\\\'\'}': Not a regular file" 1>&2;
       return 1;
    fi;
    cmp --silent -- "$1" "$2" && echo $'\x1b[32midentical\x1b[0m' 1>&2 || echo $'\x1b[31mdifferent\x1b[0m' 1>&2;
@@ -206,9 +200,6 @@ function compare() {
 function apk-install() {
    if (($# != 1)); then
       echo "Fatal: Expected exactly 1 argument, $# given" 1>&2;
-      return 1;
-   elif [ ! -e "$1" ]; then
-      echo "Fatal: '${1//\'/\'\\\'\'}': No such file or directory" 1>&2;
       return 1;
    elif [ ! -f "$1" ]; then
       echo "Fatal: '${2//\'/\'\\\'\'}': Not a regular file" 1>&2;
@@ -227,7 +218,7 @@ function apk-uninstall() {
    am start -n com.google.android.packageinstaller/com.android.packageinstaller.UninstallerActivity -d "$1" > /dev/null;
 }
 
-# set_title [arg...]
+# Usage: set_title [arg...]
 # Set terminal title
 function set_title() {
    echo -e "\033]0;$@\007";
