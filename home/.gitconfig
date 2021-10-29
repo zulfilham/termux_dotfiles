@@ -28,6 +28,7 @@
 
 [receive]
    denyCurrentBranch = warn
+   denyDeleteCurrent = warn
 
 # General Git configuration
 [core]
