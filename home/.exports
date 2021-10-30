@@ -10,6 +10,7 @@ export \
 # General environment variables
 export COLUMNS LINES \
    PATH="$PATH:~/bin" \
+   GPG_TTY=$(tty) \
    HISTCONTROL=ignoreboth \
    TERMUX=/data/data/com.termux \
    FILES=/data/data/com.termux/files \
