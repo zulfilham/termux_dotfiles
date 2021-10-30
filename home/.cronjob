@@ -62,7 +62,7 @@ function sync() {
 }
 
 function remove() {
-   rm --force --recursive "${EXTRA_OPTIONS[@]}" "$@" -- "${SOURCE[@]}";
+   MESSAGE="$(rm --force --recursive "${EXTRA_OPTIONS[@]}" "$@" -- "${SOURCE[@]}" 2>&1)" || return 1;
 }
 
 function main() {
