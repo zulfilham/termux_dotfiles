@@ -13,7 +13,7 @@ set regexp
 set casesensitive
 set trimblanks
 set matchbrackets "(<[{`)>]}'"
-set fill 71
+set fill 72
 set afterends
 set indicator
 set unix
