@@ -26,6 +26,9 @@
    ls-files-untracked = ls-files --exclude-standard --others
    ls-files-cached = diff --cached --name-only
 
+[commit]
+   gpgSign = true
+
 [receive]
    denyCurrentBranch = warn
    denyDeleteCurrent = warn
