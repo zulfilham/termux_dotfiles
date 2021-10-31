@@ -1,8 +1,22 @@
 # Personal SSH daemon configuration
-PasswordAuthentication no
-Port 8022
-PermitUserEnvironment yes
+   # Do not allow password authentication
+   PasswordAuthentication no
+
+   # Allow public key authentication
+   PubkeyAuthentication yes
+
+   # Permit additional environment variables
+   PermitUserEnvironment yes
 
 # General SSH daemon configuration
-PrintMotd yes
-Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
+   # Port number that sshd listens on is 8022
+   Port 8022
+
+   # Default external subsytem
+   Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
+
+   # Print message of the day when a user logs in interactively
+   PrintMotd yes
+
+   # Print the last time of user login when a user logs in interactively
+   PrintLastLog yes
