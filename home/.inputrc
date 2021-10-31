@@ -7,6 +7,7 @@ $if mode=emacs
 
 # allow the use of the Home/End keys
 "\e[1~": beginning-of-line
+"\e[8~": end-of-line
 "\e[2~": quoted-insert
 
 # allow the use of the Delete/Insert keys
@@ -19,8 +20,11 @@ $if mode=emacs
 "\e[5C": forward-word
 "\e[5D": backward-word
 
-"\e[8~": end-of-line
-
 $endif
 
+# Perform filename matching and completion in a case-insensitive fashion
 set completion-ignore-case on
+
+# Display possible completions using different colors to indicate their
+# file type
+set colored-stats on
