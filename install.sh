@@ -4,7 +4,7 @@ function main () {
    if (($# > 0)); then
       echo "Fatal: Expected no arguments, but $# given" 1>&2;
       return 1;
-   elif [ $(uname --operating-system) != Android ]; then
+   elif [ "$(uname --operating-system)" != Android ]; then
       echo "Fatal: Unknown platform, this configuration only valid for Termux" 1>&2;
       return 1;
    fi;
