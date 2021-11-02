@@ -32,6 +32,9 @@
 [tag]
    gpgSign = true
 
+[push]
+   followTags = true
+
 [receive]
    denyCurrentBranch = warn
    denyDeleteCurrent = warn
