@@ -88,7 +88,7 @@ EOF
 function remove() {
    if (($# == 0)); then
 cat << EOF
-Usage: remove garbage [options]
+Usage: remove garbage [rm-options]
 EOF
       return 0;
    fi;
