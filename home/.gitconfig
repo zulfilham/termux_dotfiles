@@ -29,6 +29,9 @@
    gpgSign = true
    template = ~/.config/git/COMMIT_TEMPLATE
 
+[mergetool]
+   keepBackup = false
+
 [tag]
    gpgSign = true
 
