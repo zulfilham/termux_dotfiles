@@ -23,7 +23,7 @@
    log-stat-all = log --decorate --graph --all --date=local --stat=81
    log-verbose = log --decorate --graph --date=local --stat=81 --patch
    log-verbose-all = log --decorate --all --graph --date=local --stat=81 --patch
-   restore-all = !git restore --staged --worktree -- \"$(git rev-parse --show-toplevel)\"
+   restore-all = reset --quiet --hard HEAD
 
 [commit]
    gpgSign = true
