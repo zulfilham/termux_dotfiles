@@ -13,16 +13,16 @@
    add-all = add --all
    add-modified = add --update
    add-untracked = !git ls-files -z --others --exclude-standard | git add --pathspec-from-file=- --pathspec-file-nul
-   log = log --date=local
-   log-all = log --all --date=local
-   log-oneline = log --oneline --date=local --graph
-   log-oneline-all = log --all --oneline --date=local --graph
-   log-graph = log --graph --date=local
-   log-graph-all = log --all --graph --date=local
-   log-stat = log --graph --date=local --stat=81
-   log-stat-all = log --graph --all --date=local --stat=81
-   log-verbose = log --graph --date=local --stat=81 --patch
-   log-verbose-all = log --all --graph --date=local --stat=81 --patch
+   log = log --decorate --date=local
+   log-all = log --decorate --all --date=local
+   log-oneline = log --decorate --oneline --date=local --graph
+   log-oneline-all = log --decorate --all --oneline --date=local --graph
+   log-graph = log --decorate --graph --date=local
+   log-graph-all = log --decorate --all --graph --date=local
+   log-stat = log --decorate --graph --date=local --stat=81
+   log-stat-all = log --decorate --graph --all --date=local --stat=81
+   log-verbose = log --decorate --graph --date=local --stat=81 --patch
+   log-verbose-all = log --decorate --all --graph --date=local --stat=81 --patch
    restore-all = !git restore --staged --worktree -- \"$(git rev-parse --show-toplevel)\"
 
 [commit]
