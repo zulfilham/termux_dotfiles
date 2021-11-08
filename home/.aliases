@@ -31,7 +31,7 @@ alias apply="source ~/.bashrc" \
    rm="rm --interactive" \
    diff="diff --color=auto" \
    grep="grep --color=auto" \
-   ls="ls --color=auto --almost-all" \
+   ls="ls --color=auto --almost-all --group-directories-first" \
    icp="icp --interactive" \
    imv="imv --interactive" \
    rename="rename --interactive" \
