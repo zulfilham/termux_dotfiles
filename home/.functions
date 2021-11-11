@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+# Usage: compare <file1> <file2>
+# Check whether 2 files are identical
 function compare() {
    if (($# != 2)); then
       echo "Fatal: Expected exactly 2 arguments, $# given" 1>&2;
@@ -20,6 +22,8 @@ function compare() {
    cmp --silent -- "$1" "$2" && echo $'\x1b[32midentical\x1b[0m' 1>&2 || echo $'\x1b[31mdifferent\x1b[0m' 1>&2;
 }
 
+# Usage: apk-install <apk-file>
+# Install an application in Android
 function apk-install() {
    if (($# != 1)); then
       echo "Fatal: Expected exactly 1 argument, $# given" 1>&2;
@@ -34,6 +38,8 @@ function apk-install() {
    am start -n com.google.android.packageinstaller/com.android.packageinstaller.PackageInstallerActivity -d "file://$(realpath "$1")" > /dev/null;
 }
 
+# Usage: apk-uninstall <package-name>
+# Uninstall an application in Android
 function apk-uninstall() {
    if (($# != 1)); then
       echo "Fatal: Expected exactly 1 argument, $# given" 1>&2;
@@ -42,6 +48,8 @@ function apk-uninstall() {
    am start -n com.google.android.packageinstaller/com.android.packageinstaller.UninstallerActivity -d "$1" > /dev/null;
 }
 
+# set_title [arg...]
+# Set terminal title
 function set_title() {
    echo -en "\e]0;$@\007";
 }
