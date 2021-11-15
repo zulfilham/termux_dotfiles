@@ -12,11 +12,15 @@ function main () {
    pkg up;
 
    # Personal installation
-   apt-get install --assume-yes atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file git grep gzip imagemagick jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner tree unzip vim vtutils xxhash xz-utils zip;
-   pip install youtube-dl;
+   apt-get install --assume-yes atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip imagemagick info jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner tree unzip vim vtutils xxhash xz-utils zip;
+
+   if (($? == 0)); then
+      pip install youtube-dl;
+      crontab -- "$DIRNAME/home/.crontab";
+   fi;
 
    # General installation
-   apt-get install --assume-yes coreutils diffutils findutils gnupg nano procps termux-am termux-tools;
+   apt-get install --assume-yes coreutils diffutils gnupg nano procps termux-am termux-tools;
    cp --archive --backup=numbered --target-directory="$FILES" -- "$DIRNAME/home";
    cp --archive --backup=numbered --target-directory="$FILES" -- "$DIRNAME/usr";
 }
