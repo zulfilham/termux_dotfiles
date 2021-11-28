@@ -59,7 +59,7 @@ function ssh_connect() {
 
 function copy() {
    if ssh_connect "mkdir --parents -- \"${DESTINATION//\"/\\\"}\""; then
-      MESSAGE="$(rysnc "$@" --archive --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
+      MESSAGE="$(rsync "$@" --archive --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
    else
       return 1;
    fi;
@@ -67,8 +67,8 @@ function copy() {
 
 function sync() {
    if ssh_connect "mkdir --parents -- \"${DESTINATION//\"/\\\"}\""; then
-      MESSAGE="$(rysnc --archive --update --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
-      MESSAGE="$(rysnc --archive --update --rsh="ssh -p 8022" -- "$COMPUTER_ADDRESS:$DESTINATION/" "$SOURCE/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --update --rsh="ssh -p 8022" -- "$SOURCE/" "$COMPUTER_ADDRESS:$DESTINATION/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --update --rsh="ssh -p 8022" -- "$COMPUTER_ADDRESS:$DESTINATION/" "$SOURCE/" 2>&1)" || return 1;
    else
       return 1;
    fi;
