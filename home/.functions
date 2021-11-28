@@ -27,16 +27,24 @@ function remove_garbage() {
    rm --force --recursive -- /storage/emulated/0/{.dlprovider,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs};
 }
 
-# Usage: mirror_audios [rsync_options...]
-# Mirror local Audios with Computer
-function mirror_audios() {
-   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
+function mirror_termux() {
+   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
 }
 
-# Usage: mirror_audios [rsync_options...]
-# Mirror local "GameGuardian Scripts" with Computer
+function mirror_internal() {
+   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Internal Storage/files/"
+}
+
+function mirror_external() {
+   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/External Storage/files/";
+}
+
 function mirror_gameguardian_scripts() {
    rsync --delete --archive --rsh="ssh -p 8022" "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
+}
+
+function mirror_audios() {
+   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
 }
 
 # General functions
