@@ -1,6 +1,32 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # Personal functions
+function copy_termux() {
+   rsync --archive --rsh="ssh -p 8022" "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
+}
+
+function copy_internal() {
+   rsync --archive --rsh="ssh -p 8022" "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Internal Storage/files/";
+}
+
+function copy_external() {
+   rsync --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/External Storage/files/";
+}
+
+function sync_gameguardian_scripts() {
+   rsync --archive --update --rsh="ssh -p 8022" "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
+   rsync --archive --update --rsh="ssh -p 8022" "$@" -- "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts" $INTERNAL;
+}
+
+function sync_audios() {
+   rsync --archive --update --rsh="ssh -p 8022" "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
+   rsync --archive --update --rsh="ssh -p 8022" "$@" -- "$COMPUTER_ADDRESS:/e/Zulfilham/Audios" $EXTERNAL_STORAGE;
+}
+
+function remove_garbage() {
+   rm --force --recursive -- /storage/emulated/0/{.dlprovider,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs};
+}
+
 # Usage: mirror_audios [rsync_options...]
 # Mirror local Audios with Computer
 function mirror_audios() {

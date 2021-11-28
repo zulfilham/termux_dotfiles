@@ -155,10 +155,10 @@ function main() {
    audios)
       if [ $1 == sync ]; then
          if [ -v EXTERNAL ]; then
-            SOURCE="$EXTERNAL_STORAGE/Audios";
+            SOURCE=$EXTERNAL_STORAGE/Audios;
 
             if [ -d "$SOURCE" ]; then
-               DESTINATION="/e/Zulfilham/Audios";
+               DESTINATION=/e/Zulfilham/Audios;
             else
                MESSAGE="Fatal: '${SOURCE//\'/\'\\\'\'}': Not a directory";
                echo "$MESSAGE" 1>&2;
