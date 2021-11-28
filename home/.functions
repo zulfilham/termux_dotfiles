@@ -1,5 +1,19 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+# Personal functions
+# Usage: mirror_audios [rsync_options...]
+# Mirror local Audios with Computer
+function mirror_audios() {
+   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
+}
+
+# Usage: mirror_audios [rsync_options...]
+# Mirror local "GameGuardian Scripts" with Computer
+function mirror_gameguardian_scripts() {
+   rsync --delete --archive --rsh="ssh -p 8022" "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
+}
+
+# General functions
 # Usage: compare <file1> <file2>
 # Check whether 2 files are identical
 function compare() {
