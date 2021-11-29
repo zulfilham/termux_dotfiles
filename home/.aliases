@@ -1,45 +1,45 @@
 #!/data/com.termux/files/usr/bin/bash
 
 # Personal aliases
-alias ssh-computer="ssh \"$COMPUTER_ADDRESS\"" \
-   sftp-computer="sftp \"$COMPUTER_ADDRESS\"" \
-   youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video.conf" \
-   youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio.conf" \
-   .aliases="$EDITOR ~/.aliases" \
+alias .aliases="$EDITOR ~/.aliases" \
    .auto_completion="$EDITOR ~/.auto_completion" \
    .bashrc="$EDITOR ~/.bashrc" \
-   .bash_profile="$EDITOR ~/.bash_profile" \
    .bash_logout="$EDITOR ~/.bash_logout" \
+   .bash_profile="$EDITOR ~/.bash_profile" \
    .bash_prompt="$EDITOR ~/.bash_prompt" \
+   .export="$EDITOR ~/.export" \
    .functions="$EDITOR ~/.functions" \
-   .git-credentials="$EDITOR ~/.git-credentials" \
    .gitattributes="$EDITOR ~/.gitattributes" \
    .gitconfig="$EDITOR ~/.gitconfig" \
+   .git-credentials="$EDITOR ~/.git-credentials" \
    .inputrc="$EDITOR ~/.inputrc" \
-   .export="$EDITOR ~/.export" \
    .nanorc="nano ~/.nanorc" \
-   .vimrc="$EDITOR ~/.vimrc";
+   .vimrc="$EDITOR ~/.vimrc" \
+   sftp-computer="sftp \"$COMPUTER_ADDRESS\"" \
+   ssh-computer="ssh \"$COMPUTER_ADDRESS\"" \
+   youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video.conf" \
+   youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio.conf";
 
 # General aliases
 alias apply="source ~/.bashrc" \
-   trigger-termux-session="am start -n com.termux/.filepicker.TermuxFileReceiverActivity -d file:///dev/null" \
-   ls="ls --almost-all --color=auto" \
-   grep="grep --color=auto" \
-   diff="diff --color=auto" \
-   rm="rm --interactive" \
-   mv="mv --interactive" \
    cp="cp --interactive" \
-   rename="rename --interactive" \
-   imv="imv --interactive" \
+   mv="mv --interactive" \
+   rm="rm --interactive" \
+   diff="diff --color=auto" \
+   grep="grep --color=auto" \
+   ls="ls --color=auto --almost-all" \
    icp="icp --interactive" \
-   nanorc="cd $NANORC; ls" \
-   vimrc="cd $VIMRC; ls" \
-   termux="cd $TERMUX; ls" \
-   files="cd $FILES; ls" \
-   etc="cd $ETC; ls" \
+   imv="imv --interactive" \
+   rename="rename --interactive" \
+   trigger-termux-session="am start -n com.termux/.filepicker.TermuxFileReceiverActivity -d file:///dev/null" \
    bin="cd $BIN; ls" \
+   etc="cd $ETC; ls" \
+   files="cd $FILES; ls" \
    prefix="cd $PREFIX; ls" \
    share="cd $SHARE; ls" \
+   termux="cd $TERMUX; ls" \
+   nanorc="cd $NANORC; ls" \
+   vimrc="cd $VIMRC; ls" \
    internal="cd $INTERNAL; ls";
 
 if [ -v EXTERNAL ]; then
