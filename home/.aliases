@@ -1,10 +1,8 @@
 #!/data/com.termux/files/usr/bin/bash
 
 # Personal aliases
-alias ssh-computer="ssh -p 8022 \"$COMPUTER_ADDRESS\"" \
-   scp-computer="scp -pP 8022" \
-   sftp-computer="sftp -pP 8022 \"$COMPUTER_ADDRESS\"" \
-   rsync-computer="rsync --rsh=\"ssh -p 8022\"" \
+alias ssh-computer="ssh \"$COMPUTER_ADDRESS\"" \
+   sftp-computer="sftp \"$COMPUTER_ADDRESS\"" \
    youtube-dl-video="youtube-dl --config-location ~/.config/youtube-dl/video.conf" \
    youtube-dl-audio="youtube-dl --config-location ~/.config/youtube-dl/audio.conf" \
    .aliases="$EDITOR ~/.aliases" \
