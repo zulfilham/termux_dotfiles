@@ -24,6 +24,9 @@
    ls-files-untracked = ls-files --exclude-standard --others
    ls-files-cached = diff --cached --name-only
 
+[receive]
+   denyCurrentBranch = warn
+
 # General Git configuration
 [core]
    autocrlf = false
