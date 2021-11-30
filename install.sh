@@ -11,7 +11,7 @@ function main () {
    apt-get update --assume-yes;
 
    # Personal installation
-   apt-get install atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip imagemagick jq man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner texinfo tree unzip vim vtutils xxhash xz-utils zip && \
+   apt-get install atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip imagemagick jq lua53 man openssh php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner texinfo tree tsu unzip vim vtutils xxhash xz-utils zip && \
    pip install youtube-dl;
 
    # General installation
