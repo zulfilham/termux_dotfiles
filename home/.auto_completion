@@ -3556,3 +3556,8 @@ __git_complete gitk __gitk_main
 if [ Cygwin = "$(uname -o 2>/dev/null)" ]; then
 __git_complete git.exe __git_main
 fi
+
+complete -o bashdefault -o default -W "termux internal external" copy;
+complete -o bashdefault -o default -W "gameguardian_scripts audios" sync;
+complete -o bashdefault -o default -W "termux internal external gameguardian_scripts audios mlbb_data" mirror;
+complete -o bashdefault -o default -W garbage remove;

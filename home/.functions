@@ -1,50 +1,181 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # Personal functions
-function copy_termux() {
-   rsync --archive "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
+function copy() {
+   if (($# == 0)); then
+cat << EOF
+Usage: copy (termux | internal) [<rsync-options>]
+   or: copy external [rsync-options]
+EOF
+      return 0;
+   fi;
+
+   local source destination extra_options;
+
+   case "$1" in
+   termux)
+      source=$FILES;
+      destination=/d/Zulfilham/Backups/Termux/files;
+      extra_options=(--exclude=/{home/.suroot,usr/var/run});
+      ;;
+   internal)
+      source=$INTERNAL;
+      destination="/d/Zulfilham/Backups/Internal Storage/files";
+      extra_options=(--exclude=/{"db????*??*??".{sql,db},Diary});
+      ;;
+   external)
+      if [ -v EXTERNAL ]; then
+         source=$EXTERNAL;
+         destination="/d/Zulfilham/Backups/External Storage/files";
+      else
+         echo "Fatal: SD card is not installed on this device" 1>&2;
+         return 1;
+      fi;
+      ;;
+   *)
+      echo "Fatal: Invalid object '$1'" 1>&2;
+      return 1;
+      ;;
+   esac;
+   rsync --archive "${extra_options[@]}" "$@" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"";
 }
 
-function copy_internal() {
-   rsync --archive "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/Internal Storage/files/\"";
+function sync() {
+   if (($# == 0)); then
+cat << EOF
+Usage: sync gameguardian_scripts [<rsync-options>]
+   or: sync audios [rsync-options]
+EOF
+      return 0;
+   fi;
+
+   local source destination extra_options;
+
+   case "$1" in
+   gameguardian_scripts)
+      source="$INTERNAL/GameGuardian Scripts";
+
+      if [ -d "$source" ]; then
+         destination="/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts";
+         extra_options=(--exclude=/.git);
+      else
+         echo "Fatal: '${source//\'/\'\\\'\'}': Not a directory" 1>&2;
+         return 1;
+      fi;
+      ;;
+   audios)
+      if [ -v EXTERNAL ]; then
+         source=$EXTERNAL_STORAGE/Audios;
+
+         if [ -d "$source" ]; then
+            destination=/e/Zulfilham/Audios;
+         else
+            echo "Fatal: '${source//\'/\'\\\'\'}': Not a directory" 1>&2;
+            return 1;
+         fi;
+      else
+         echo "Fatal: SD card is not installed on this device" 1>&2;
+         return 1;
+      fi;
+      ;;
+   *)
+      echo "Fatal: Invalid object '$1'" 1>&2;
+      return 1;
+      ;;
+   esac;
+   rsync --archive --update "${extra_options[@]}" "$@" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"" && \
+   rsync --archive --update "${extra_options[@]}" "$@" -- "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"" "$source/";
 }
 
-function copy_external() {
-   rsync --archive "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/External Storage/files/\"";
+function remove() {
+   if (($# == 0)); then
+cat << EOF
+Usage: remove garbage [options]
+EOF
+      return 0;
+   fi;
+
+   case "$1" in
+   garbage)
+      local source=(/storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs});
+      ;;
+   *)
+      echo "Fatal: Invalid object '$1'" 1>&2;
+      return 1;
+      ;;
+   esac;
+   rm --force --recursive "$@" -- "${source[@]}";
 }
 
-function sync_gameguardian_scripts() {
-   rsync --archive --update "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
-   rsync --archive --update "$@" -- "$COMPUTER_ADDRESS:\"/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts\"" $INTERNAL;
-}
+function mirror() {
+   if (($# == 0)); then
+cat << EOF
+Usage: mirror (termux | internal | gameguardian_scripts) [<rsync-options>]
+   or: mirror (external | audios | mlbb_data) [rsync-options]
+EOF
+      return 0;
+   fi;
 
-function sync_audios() {
-   rsync --archive --update "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
-   rsync --archive --update "$@" -- "$COMPUTER_ADDRESS:/e/Zulfilham/Audios" $EXTERNAL_STORAGE;
-}
+   local source destination extra_options;
 
-function remove_garbage() {
-   rm --force --recursive "$@" -- /storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs};
-}
+   case "$1" in
+   termux)
+      source=$FILES;
+      destination=/d/Zulfilham/Backups/Termux/files;
+      extra_options=(--exclude=/{home/.suroot,usr/var/run});
+      ;;
+   internal)
+      source=$INTERNAL;
+      destination="/d/Zulfilham/Backups/Internal Storage/files";
+      extra_options=(--exclude=/{"db????*??*??".{sql,db},Diary});
+      ;;
+   external)
+      if [ -v EXTERNAL ]; then
+         source=$EXTERNAL;
+         destination="/d/Zulfilham/Backups/External Storage/files";
+      else
+         echo "Fatal: SD card is not installed on this device" 1>&2;
+         return 1;
+      fi;
+      ;;
+   gameguardian_scripts)
+      source="$INTERNAL/GameGuardian Scripts";
 
-function mirror_termux() {
-   rsync --delete --archive "$@" -- $FILES "$COMPUTER_ADDRESS:/d/Zulfilham/Backups/Termux";
-}
+      if [ -d "$source" ]; then
+         destination="/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts";
+         extra_options=(--exclude=/.git);
+      else
+         echo "Fatal: '${source//\'/\'\\\'\'}': Not a directory" 1>&2;
+         return 1;
+      fi;
+      ;;
+   audios)
+      if [ -v EXTERNAL ]; then
+         source=$EXTERNAL_STORAGE/Audios;
 
-function mirror_internal() {
-   rsync --delete --archive "$@" -- $INTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/Internal Storage/files/\"";
-}
+         if [ -d "$source" ]; then
+            destination=/e/Zulfilham/Audios;
+         else
+            echo "Fatal: '${source//\'/\'\\\'\'}': Not a directory" 1>&2;
+            return 1;
+         fi;
+      else
+         echo "Fatal: SD card is not installed on this device" 1>&2;
+         return 1;
+      fi;
+      ;;
+   mlbb_data)
+      source=$INTERNAL/Android/data/com.mobile.legends/files;
 
-function mirror_external() {
-   rsync --delete --archive "$@" -- $EXTERNAL/ "$COMPUTER_ADDRESS:\"/d/Zulfilham/Backups/External Storage/files/\"";
-}
-
-function mirror_gameguardian_scripts() {
-   rsync --delete --archive "$@" -- "$INTERNAL/GameGuardian Scripts" "$COMPUTER_ADDRESS:/d/Zulfilham/Repositories/Zulfilham";
-}
-
-function mirror_audios() {
-   rsync --delete --archive "$@" -- $EXTERNAL_STORAGE/Audios "$COMPUTER_ADDRESS:/e/Zulfilham";
+      if [ -d "$source" ]; then
+         destination="/d/Zulfilham/Backups/Mobile Legends - Bang Bang/files";
+      else
+         echo "Fatal: '${source//\'/\'\\\'\'}': Not a directory" 1>&2;
+         return 1;
+      fi;
+      ;;
+   esac;
+   rsync --delete --archive "${extra_options[@]}" "$@" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"";
 }
 
 # General functions
