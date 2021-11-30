@@ -1,33 +1,18 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 function show_help() {
-   declare -A chars=([bold]=$'\x1b[38;5;15;1m' [normal]=$'\x1b[0m');
-cat - << EOF
-Usage: bash $1 <command> <object>
-Personal cron jobs program
-
-Valid commands are:
-
-   ${chars[bold]}copy${chars[normal]}      Copy ${chars[bold]}object${chars[normal]} (only the differences) from local to remote
-   ${chars[bold]}sync${chars[normal]}      Likewise, but also copy ${chars[bold]}object${chars[normal]} from remote to local
-   ${chars[bold]}remove${chars[normal]}    Remove ${chars[bold]}object${chars[normal]}
-
-Valid objects are:
-
-   ${chars[bold]}termux${chars[normal]}                  (${chars[bold]}copy${chars[normal]} only)
-   ${chars[bold]}internal${chars[normal]}                (${chars[bold]}copy${chars[normal]} only)
-   ${chars[bold]}external${chars[normal]}                (${chars[bold]}copy${chars[normal]} only)
-   ${chars[bold]}gameguardian_scripts${chars[normal]}    (${chars[bold]}sync${chars[normal]} only)
-   ${chars[bold]}audios${chars[normal]}                  (${chars[bold]}sync${chars[normal]} only)
-   ${chars[bold]}garbage${chars[normal]}                 (${chars[bold]}remove${chars[normal]} only)
-
-Author: Zulfilham <code.zulfilham@gmail.com>
+cat << EOF
+Usage: bash $1 copy (termux | internal) [<rsync-options>]
+   or: bash $1 copy external [rsync-options]
+   or: bash $1 sync gameguardian_scripts [<rsync-options>]
+   or: bash $1 sync audios [rsync-options]
+   or: bash $1 remove garbage [rm-options]
 EOF
 }
 
 function cronlog() {
    if (($# == 0)); then
-cat - >> ~/.cronlog << EOF
+cat >> ~/.cronlog << EOF
 ------------------------------------------------------------------------
 
 Command: $COMMAND
@@ -61,7 +46,7 @@ function ssh_connect() {
 
 function copy() {
    if ssh_connect; then
-      MESSAGE="$(rsync --archive --mkpath "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath "${EXTRA_OPTIONS[@]}" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
    else
       return 1;
    fi;
@@ -69,62 +54,46 @@ function copy() {
 
 function sync() {
    if ssh_connect; then
-      MESSAGE="$(rsync --archive --mkpath --update -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
-      MESSAGE="$(rsync --archive --mkpath --update -- "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" "$SOURCE/" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --update "${EXTRA_OPTIONS[@]}" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
+      MESSAGE="$(rsync --archive --mkpath --update "${EXTRA_OPTIONS[@]}" "$@" -- "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" "$SOURCE/" 2>&1)" || return 1;
    else
       return 1;
    fi;
 }
 
 function remove() {
-   rm --force --recursive -- "${SOURCE[@]}";
+   rm --force --recursive "${EXTRA_OPTIONS[@]}" "$@" -- "${SOURCE[@]}";
 }
 
 function main() {
-   if (($# == 0)); then
+   if (($# < 1)); then
       show_help "$0";
       return 0;
-   elif (($# > 2)); then
-      echo "Fatal: Extra arguments is not allowed" 1>&2;
-      return 1;
    fi;
 
-   if ! [ "$1" == copy -o "$1" == sync -o "$1" == remove ]; then
-      echo "Fatal: Invalid command '$1'" 1>&2;
-      return 1;
-   fi;
-
-   if (($# == 1)); then
-      echo "Fatal: Expected exactly an object, no object given" 1>&2;
-      return 1;
-   fi;
-
-   COMMAND="bash -l $0 $1 $2";
+   COMMAND="bash -l $0 $@";
    DATE=$(date "+%F %T %Z");
    STATUS=RUNNING;
 
-   case "$2" in
-   termux)
-      if [ $1 == copy ]; then
+   case "$1" in
+   copy)
+      if (($# < 2)); then
+         echo "Fatal: No object specified" 1>&2;
+         return 1;
+      fi;
+
+      case "$2" in
+      termux)
          SOURCE=$FILES;
          DESTINATION=/d/Zulfilham/Backups/Termux/files;
-         local extra_options=(--exclude=/{home/.suroot,usr/var/run});
-      else
-         echo "Fatal: Object '$2' does not support command '$1'" 1>&2;
-         return 1;
-      fi;
-      ;;
-   internal)
-      if [ $1 == copy ]; then
+         EXTRA_OPTIONS=(--exclude=/{home/.suroot,usr/var/run});
+         ;;
+      internal)
          SOURCE=$INTERNAL;
          DESTINATION="/d/Zulfilham/Backups/Internal Storage/files";
-      else
-         echo "Fatal: Object '$2' does not support command '$1'" 1>&2;
-         return 1;
-      fi;
-      ;;
-   external)
-      if [ $1 == copy ]; then
+         EXTRA_OPTIONS=(--exclude=/{"db????*??*??".{sql,db},Diary});
+         ;;
+      external)
          if [ -v EXTERNAL ]; then
             SOURCE=$EXTERNAL;
             DESTINATION="/d/Zulfilham/Backups/External Storage/files";
@@ -133,29 +102,33 @@ function main() {
             echo "$MESSAGE" 1>&2;
             STATUS=FAILURE;
          fi;
-      else
-         echo "Fatal: Object '$2' does not support command '$1'" 1>&2;
+         ;;
+      *)
+         echo "Fatal: invalid object '$2'";
+         return 1;
+         ;;
+      esac;
+      ;;
+   sync)
+      if (($# < 2)); then
+         echo "Fatal: No object specified" 1>&2;
          return 1;
       fi;
-      ;;
-   gameguardian_scripts)
-      if [ $1 == sync ]; then
+
+      case "$2" in
+      gameguardian_scripts)
          SOURCE="$INTERNAL/GameGuardian Scripts";
 
          if [ -d "$SOURCE" ]; then
             DESTINATION="/d/Zulfilham/Repositories/Zulfilham/GameGuardian Scripts";
+            EXTRA_OPTIONS=(--exclude=/.git);
          else
             MESSAGE="Fatal: '${SOURCE//\'/\'\\\'\'}': Not a directory";
             echo "$MESSAGE" 1>&2;
             STATUS=FAILURE;
          fi;
-      else
-         echo "Fatal: Object '$2' does not support command '$1'" 1>&2;
-         return 1;
-      fi;
-      ;;
-   audios)
-      if [ $1 == sync ]; then
+         ;;
+      audios)
          if [ -v EXTERNAL ]; then
             SOURCE=$EXTERNAL_STORAGE/Audios;
 
@@ -171,29 +144,38 @@ function main() {
             echo "$MESSAGE" 1>&2;
             STATUS=FAILURE;
          fi;
-      else
-         echo "Fatal: Object '$2' does not support command '$1'" 1>&2;
+         ;;
+      *)
+         echo "Fatal: invalid object '$2'";
          return 1;
-      fi;
+         ;;
+      esac;
       ;;
-   garbage)
-      if [ "$1" == remove ]; then
-         SOURCE=(/storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs});
-      else
-         echo "Fatal: Object '$2' does not support command '$1'" 1>&2;
+   remove)
+      if (($# < 2)); then
+         echo "Fatal: No object specified" 1>&2;
          return 1;
       fi;
+
+      case "$2" in
+      garbage)
+         SOURCE=(/storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs});
+         ;;
+      *)
+         echo "Fatal: Invalid object '$2'";
+         return 1;
+         ;;
+      esac;
       ;;
    *)
-      echo "Fatal: Invalid object '$2'" 1>&2;
+      echo "Fatal: Invalid command '$1'" 1>&2;
       return 1;
-      ;;
    esac;
 
    cronlog;
 
    if [ $STATUS == RUNNING ]; then
-      $1 "${extra_options[@]}" && STATUS=SUCCESS || STATUS=FAILURE;
+      $1 "${@:3}" && STATUS=SUCCESS || STATUS=FAILURE;
    fi;
    cronlog $STATUS;
    [ $STATUS == SUCCESS ] && return 0 || return 1;
