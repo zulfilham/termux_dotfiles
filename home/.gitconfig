@@ -7,26 +7,29 @@
    editor = nano
    autocrlf = false
    eol = lf
-
-   # uncomment this, to get rid of less' output after exiting
-   # pager = less -+$LESS -R
+   pager = less -+$LESS --RAW-CONTROL-CHARS
 
 [alias]
    add-all = add --all
    add-modified = add --update
-   add-untracked = !git ls-files -z --others --exclude-standard | git add --pathspec-file-nul --pathspec-from-file=-
+   add-untracked = !git ls-files -z --others --exclude-standard | git add --pathspec-from-file=- --pathspec-file-nul
    log = log --date=local
    log-all = log --all --date=local
-   log-graph = log --graph --date=local
-   log-graph-all = log --all --graph --date=local
-   log-verbose = log --graph --date=local --stat-width=81
-   log-verbose-all = log --all --graph --date=local --stat-width=81
    log-oneline = log --oneline --date=local --graph
    log-oneline-all = log --all --oneline --date=local --graph
-   ls-files-untracked = ls-files --exclude-standard --others
-   ls-files-cached = diff --cached --name-only
+   log-graph = log --graph --date=local
+   log-graph-all = log --all --graph --date=local
+   log-stat = log --graph --date=local --stat=81
+   log-stat-all = log --graph --all --date=local --stat=81
+   log-verbose = log --graph --date=local --stat=81 --patch
+   log-verbose-all = log --all --graph --date=local --stat=81 --patch
+   restore-all = !git restore --staged --worktree -- \"$(git rev-parse --show-toplevel)\"
 
 [commit]
+   gpgSign = true
+   template = ~/.config/git/COMMIT_TEMPLATE
+
+[tag]
    gpgSign = true
 
 [receive]
@@ -34,9 +37,5 @@
    denyDeleteCurrent = warn
 
 # General Git configuration
-[core]
-   autocrlf = false
-   eol = lf
-
 [pull]
    rebase = false
