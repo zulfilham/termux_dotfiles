@@ -16,6 +16,8 @@ function main () {
 
    # General installation
    apt-get install --assume-yes coreutils diffutils gnupg nano procps termux-am termux-tools;
+
+   # Main installation
    cp --archive --backup=numbered -- "$(dirname "$0")"/{home,usr} ~/..;
 }
 

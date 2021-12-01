@@ -4,8 +4,7 @@
 function copy() {
    if (($# == 0)); then
 cat << EOF
-Usage: copy (termux | internal) [<rsync-options>]
-   or: copy external [rsync-options]
+Usage: copy (termux | internal | external) [<rsync-options>]
 EOF
       return 0;
    fi;
@@ -43,8 +42,7 @@ EOF
 function sync() {
    if (($# == 0)); then
 cat << EOF
-Usage: sync gameguardian_scripts [<rsync-options>]
-   or: sync audios [rsync-options]
+Usage: sync (gameguardian_scripts | audios) [<rsync-options>]
 EOF
       return 0;
    fi;
@@ -110,8 +108,8 @@ EOF
 function mirror() {
    if (($# == 0)); then
 cat << EOF
-Usage: mirror (termux | internal | gameguardian_scripts) [<rsync-options>]
-   or: mirror (external | audios | mlbb_data) [rsync-options]
+Usage: mirror (termux | internal | external | gameguardian_scripts
+               | audios | mlbb_data) [<rsync-options>]
 EOF
       return 0;
    fi;

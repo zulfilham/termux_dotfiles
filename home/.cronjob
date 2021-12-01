@@ -2,10 +2,8 @@
 
 function show_help() {
 cat << EOF
-Usage: bash $1 copy (termux | internal) [<rsync-options>]
-   or: bash $1 copy external [rsync-options]
-   or: bash $1 sync gameguardian_scripts [<rsync-options>]
-   or: bash $1 sync audios [rsync-options]
+Usage: bash $1 copy (termux | internal | external) [<rsync-options>]
+   or: bash $1 sync (gameguardian_scripts | audios) [<rsync-options>]
    or: bash $1 remove garbage [rm-options]
 EOF
 }
@@ -21,14 +19,21 @@ Status:  RUNNING
 Message: $MESSAGE
 
 EOF
+      # Limit log file size into 256 KB; When file size is greater than
+      # 256 KB.  The contents will be appended to the end of file, and
+      # old log will be overriden as new log written
       find ~/.cronlog -size +262144c -exec sed --null-data --in-place 's/-\{72\}/\x00/g; s/^\x00[^\x00]\+//; s/\x00/------------------------------------------------------------------------/g' {} +;
    else
+      # Escape strings to be used as replacement by sed
       COMMAND="${COMMAND//\\/\\\\}";
       COMMAND="${COMMAND//\&/\\\&}";
       COMMAND="${COMMAND//$'\n'/\\x0a}";
       MESSAGE="${MESSAGE//\\/\\\\}";
       MESSAGE="${MESSAGE//\&/\\\&}";
       MESSAGE="${MESSAGE//$'\n'/\\x0a}";
+
+      # Update log file, namely: time of command ends, final status, and
+      # message if any
       sed --null-data --in-place \
       "s/-\{72\}/\x00/g; s/Command:[[:space:]]*[^\x00]\+[[:space:]]*Date:[[:space:]]*$DATE[^\x00]*[[:space:]]*Status:[[:space:]]*RUNNING[[:space:]]*Message:[[:space:]]*[^\x00]*/Command: ${COMMAND//\//\\\/}\x0aDate:    $DATE -> $(date "+%F %T %Z")\x0aStatus:  $1\x0aMessage: ${MESSAGE//\//\\\/}\x0a\x0a/; s/\x00/------------------------------------------------------------------------/g" \
       -- ~/.cronlog;
@@ -44,6 +49,8 @@ function ssh_connect() {
    fi;
 }
 
+# Usage: copy (termux | internal | external) [<rsync-options>]
+# Copy SOURCE to DESTINATION
 function copy() {
    if ssh_connect; then
       MESSAGE="$(rsync --archive --mkpath "${EXTRA_OPTIONS[@]}" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
@@ -52,6 +59,8 @@ function copy() {
    fi;
 }
 
+# Usage: sync (gameguardian_scripts | audios) [<rsync-options>]
+# Like copy, but also copy from DESTINATION to SOURCE
 function sync() {
    if ssh_connect; then
       MESSAGE="$(rsync --archive --mkpath --update "${EXTRA_OPTIONS[@]}" "$@" -- "$SOURCE/" "$COMPUTER_ADDRESS:\"${DESTINATION//\"/\\\"}/\"" 2>&1)" || return 1;
@@ -61,6 +70,8 @@ function sync() {
    fi;
 }
 
+# Usage: remove garbage [rm-options]
+# Remove SOURCE
 function remove() {
    MESSAGE="$(rm --force --recursive "${EXTRA_OPTIONS[@]}" "$@" -- "${SOURCE[@]}" 2>&1)" || return 1;
 }
