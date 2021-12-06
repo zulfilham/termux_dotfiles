@@ -37,7 +37,7 @@ EOF
       return 1;
       ;;
    esac;
-   rsync --archive "${extra_options[@]}" "$@" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"";
+   rsync --archive "${extra_options[@]}" "${@:2}" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"";
 }
 
 function sync() {
@@ -83,8 +83,8 @@ EOF
       return 1;
       ;;
    esac;
-   rsync --archive --update "${extra_options[@]}" "$@" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"" && \
-   rsync --archive --update "${extra_options[@]}" "$@" -- "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"" "$source/";
+   rsync --archive --update "${extra_options[@]}" "${@:2}" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"" && \
+   rsync --archive --update "${extra_options[@]}" "${@:2}" -- "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"" "$source/";
 }
 
 function remove() {
@@ -104,7 +104,7 @@ EOF
       return 1;
       ;;
    esac;
-   rm --force --recursive "$@" -- "${source[@]}";
+   rm --force --recursive "${@:2}" -- "${source[@]}";
 }
 
 function mirror() {
@@ -175,7 +175,7 @@ EOF
       fi;
       ;;
    esac;
-   rsync --delete --archive "${extra_options[@]}" "$@" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"";
+   rsync --delete --archive "${extra_options[@]}" "${@:2}" -- "$source/" "$COMPUTER_ADDRESS:\"${destination//\"/\\\"}/\"";
 }
 
 # General functions
