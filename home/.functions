@@ -95,7 +95,7 @@ EOF
 
    case "$1" in
    garbage)
-      local source=(/storage/emulated/0/{.dlprovider,.fe_tmp,.profig.os,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs});
+      local source=(/storage/emulated/0/{.DataStorage,.UTSystemConfig,.dlprovider,.fe_tmp,.profig.os,Android/data/{com.google.android.youtube,org.telegram.messenger}/cache,DCIM/.thumbnails,MIUI/{Gallery,debug_log},WhatsApp/Databases/msgstore-????-??-??.1.db.crypt14,dctp,did,wlan_logs});
       ;;
    *)
       echo "Fatal: Invalid object '$1'" 1>&2;
@@ -219,5 +219,5 @@ function apk-uninstall() {
 # Usage: set_title [arg...]
 # Set terminal title
 function set_title() {
-   echo -e "\033]0;$@\007";
+   echo -en "\033]0;$@\007";
 }
