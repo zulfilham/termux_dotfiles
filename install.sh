@@ -12,11 +12,11 @@ function main () {
    # General installation
    local dirname="$(dirname -- "$0")";
    cp --archive --backup=numbered -- "$dirname/usr/etc/apt" "$PREFIX/etc";
-   apt-get update --assume-yes;
-   apt-get install --assume-yes coreutils diffutils gnupg nano procps termux-am termux-tools;
+   apt update && apt upgrade;
+   apt install --assume-yes coreutils diffutils gnupg nano procps termux-am termux-tools;
 
    # Personal installation
-   apt-get install atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip httrack imagemagick jq lua53 man mariadb openssh p7zip php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner texinfo tree tsu unrar unzip vim vtutils xxhash xz-utils zip && \
+   apt install atomicparsley bc bzip2 ccrypt clang cronie crunch curl ffmpeg file findutils git grep gzip httrack imagemagick jq lua53 man mariadb openssh p7zip php python rclone renameutils rsync samefile sed sqlite tar termux-api termux-auth termux-elf-cleaner texinfo tree tsu unrar unzip vim vtutils xxhash xz-utils zip && \
    pip install youtube-dl;
 
    # Main installation
