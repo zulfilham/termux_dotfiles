@@ -21,7 +21,7 @@ function main () {
 
    # Main installation
    cp --archive --backup=numbered -- "$dirname"/{home,usr} ~/..;
-   echo "Please restart Termux to apply the changes!";
+   echo "Please restart Termux to apply the changes";
 }
 
 main "$@";

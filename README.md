@@ -5,9 +5,9 @@
 </p>
 
 ## Installation
-**Warning**: These configurations are default to my personal preferences.  Don't blindly use them, your informations such as username, email, etc is going to be different with mine, so go ahead and change those settings on your own.
+**Warning**: This configuration is default to my personal preferences.  Your information such as username, email, etc are going to be different with mine, so go ahead and change those settings on your own before using it.
 
-**Important**: Don't forget to restart Termux after installation, otherwise some configurations may not work properly.
+**Important**: Don't forget to restart Termux after installation, otherwise some configuration will not work.
 
 * Multi-line Commands
 ```bash
